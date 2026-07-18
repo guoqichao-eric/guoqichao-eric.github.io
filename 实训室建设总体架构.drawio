@@ -1,0 +1,215 @@
+<mxfile host="app.diagrams.net">
+  <diagram name="第 1 页" id="HP7-mtErlVAgSfLGt2NW">
+    <mxGraphModel dx="2200" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <UserObject label="" mermaidData="{&#xa;  &quot;data&quot;: &quot;flowchart TD\n    %% 样式定义\n    classDef output fill:#e53935,color:#fff,stroke:#b71c1c,stroke-width:2px;\n    classDef ability fill:#1e88e5,color:#fff,stroke:#0d47a1,stroke-width:2px;\n    classDef carrier fill:#fdd835,color:#333,stroke:#f57f17,stroke-width:2px;\n    classDef support fill:#43a047,color:#fff,stroke:#1b5e20,stroke-width:2px;\n    classDef throughout fill:#8e24aa,color:#fff,stroke:#4a148c,stroke-width:2px,stroke-dasharray: 5 5;\n\n    %% ========== 顶层：就业出口（核心目标） ==========\n    subgraph OUT[🎯 L5 - 就业出口层（以终为始的终点）]\n        direction LR\n        O1[安全产品售前工程师]\n        O2[网络与安全运维工程师]\n        O3[渗透测试工程师]\n        O4[安全运营中心分析师]\n        O5[安全评估与等保测评师]\n        O6[AI安全/云安全工程师&lt;br&gt;（新兴岗位）]\n    end\n\n    %% ========== 第二层：能力解构层 ==========\n    subgraph AB[🧩 L4 - 能力解构层（岗位胜任力模型）]\n        direction LR\n        A1[售前能力：&lt;br&gt;方案撰写 / 产品演示 / 客户沟通]\n        A2[运维能力：&lt;br&gt;网络配置 / 防火墙策略 / 故障排查]\n        A3[攻防能力：&lt;br&gt;漏洞挖掘 / 渗透测试 / 代码审计]\n        A4[运营能力：&lt;br&gt;安全监控 / 事件研判 / 应急响应]\n        A5[评估能力：&lt;br&gt;风险评估 / 等级保护 / 合规检查]\n        A6[前沿能力：&lt;br&gt;AI安全 / 云原生安全 / 数据安全]\n    end\n\n    %% ========== 第三层：培养载体层 ==========\n    subgraph CA[📚 L3 - 培养载体层（怎么培养这些能力）]\n        direction LR\n        C1[课程体系：&lt;br&gt;五阶递进课程&lt;br&gt;（通识→平台→岗位→拓展→职场）]\n        C2[实训项目：&lt;br&gt;靶场实战 / 应急演练 / 综合攻防]\n        C3[竞赛机制：&lt;br&gt;校赛 / CTF / 职业技能大赛]\n        C4[认证衔接：&lt;br&gt;CISP/NISP / 华为/深信服认证]\n        C5[顶岗实习：&lt;br&gt;真实岗位 / 企业导师带教]\n    end\n\n    %% ========== 第四层：基础支撑层 ==========\n    subgraph BS[🖥️ L2 - 基础支撑层（用什么平台和资源来教）]\n        direction LR\n        B1[硬件设施：&lt;br&gt;防火墙/IDS/服务器/网络靶场]\n        B2[数字资源：&lt;br&gt;教学案例库 / 虚拟仿真软件]\n        B3[师资团队：&lt;br&gt;双师型教师 / 企业产业导师]\n        B4[合作生态：&lt;br&gt;产业学院 / 政行企校协同]\n    end\n\n    %% ========== 贯穿层 ==========\n    subgraph TH[⚖️ L1 - 贯穿保障层（横切所有层级的基线）]\n        direction LR\n        T1[❤️ 思政育人：总体国家安全观 / 职业道德 / 法律底线]\n        T2[📋 标准规范：教育部教学标准 / 实训条件标准 / 等保合规]\n    end\n\n    %% ========== 连接逻辑（自下而上支撑） ==========\n    BS --&gt;|物质与生态保障| CA\n    CA --&gt;|知识与技能输入| AB\n    AB --&gt;|胜任力匹配| OUT\n\n    %% 贯穿层融入\n    TH -.-&gt;|价值引领与规范约束| BS\n    TH -.-&gt; CA\n    TH -.-&gt; AB\n    TH -.-&gt; OUT\n\n    %% 右侧标注反向逻辑（以终为始）\n    OUT -.-&gt;|逆向驱动| AB\n    AB -.-&gt;|逆向驱动| CA\n    CA -.-&gt;|逆向驱动| BS&quot;,&#xa;  &quot;config&quot;: null&#xa;}" id="Oz5TPtnrnUrGhkk3YbHM-34">
+          <mxCell connectable="0" parent="1" style="group;transparentBounds=1;editIcon=1;lockedGroup=0;groupPadding=10;" vertex="1">
+            <mxGeometry height="2800" width="790" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="📚 L3 - 培养载体层（怎么培养这些能力）" mermaidId="n:CA" mermaidBaseStyle="html=1;whiteSpace=wrap;strokeWidth=1;verticalAlign=top;fillColor=light-dark(#ffffde,#1f2020);strokeColor=light-dark(#aaaa33,#cccccc);fontColor=light-dark(#333333,#cccccc);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;" mermaidBaseValue="📚 L3 - 培养载体层（怎么培养这些能力）" id="Oz5TPtnrnUrGhkk3YbHM-49">
+          <mxCell parent="Oz5TPtnrnUrGhkk3YbHM-34" style="html=1;whiteSpace=wrap;strokeWidth=1;verticalAlign=top;fillColor=light-dark(#ffffde,#1f2020);strokeColor=light-dark(#aaaa33,#cccccc);fontColor=light-dark(#333333,#cccccc);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;" vertex="1">
+            <mxGeometry height="225" width="525" x="-154" y="395" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="课程体系：五阶递进课程 （通识→平台→岗位→拓展→职场）" mermaidId="n:C1" mermaidBaseStyle="html=1;whiteSpace=wrap;strokeWidth=1;fillColor=light-dark(#ECECFF,#1f2020);strokeColor=light-dark(#9370DB,#cccccc);fontColor=light-dark(#333333,#cccccc);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;" mermaidBaseValue="课程体系：&#xa;五阶递进课程&#xa;（通识→平台→岗位→拓展→职场）" id="Oz5TPtnrnUrGhkk3YbHM-50">
+          <mxCell parent="Oz5TPtnrnUrGhkk3YbHM-49" style="html=1;whiteSpace=wrap;strokeWidth=1;fillColor=light-dark(#ECECFF,#1f2020);strokeColor=light-dark(#9370DB,#cccccc);fontColor=light-dark(#333333,#cccccc);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=10;" vertex="1">
+            <mxGeometry height="18.42065217391304" width="429.7966981132075" x="47.60660377358491" y="29.347826086956516" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="实训项目：靶场实战 / 应急演练 / 综合攻防" mermaidId="n:C2" mermaidBaseStyle="html=1;whiteSpace=wrap;strokeWidth=1;fillColor=light-dark(#ECECFF,#1f2020);strokeColor=light-dark(#9370DB,#cccccc);fontColor=light-dark(#333333,#cccccc);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;" mermaidBaseValue="实训项目：&#xa;靶场实战 / 应急演练 / 综合攻防" id="Oz5TPtnrnUrGhkk3YbHM-51">
+          <mxCell parent="Oz5TPtnrnUrGhkk3YbHM-49" style="html=1;whiteSpace=wrap;strokeWidth=1;fillColor=light-dark(#ECECFF,#1f2020);strokeColor=light-dark(#9370DB,#cccccc);fontColor=light-dark(#333333,#cccccc);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=10;" vertex="1">
+            <mxGeometry height="25.26923076923077" width="391.70984455958546" x="66.64507772020727" y="65.07692307692308" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="竞赛机制：校赛 / CTF / 职业技能大赛" mermaidId="n:C3" mermaidBaseStyle="html=1;whiteSpace=wrap;strokeWidth=1;fillColor=light-dark(#ECECFF,#1f2020);strokeColor=light-dark(#9370DB,#cccccc);fontColor=light-dark(#333333,#cccccc);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;" mermaidBaseValue="竞赛机制：&#xa;校赛 / CTF / 职业技能大赛" id="Oz5TPtnrnUrGhkk3YbHM-52">
+          <mxCell parent="Oz5TPtnrnUrGhkk3YbHM-49" style="html=1;whiteSpace=wrap;strokeWidth=1;fillColor=light-dark(#ECECFF,#1f2020);strokeColor=light-dark(#9370DB,#cccccc);fontColor=light-dark(#333333,#cccccc);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=10;" vertex="1">
+            <mxGeometry height="25.26923076923077" width="341.38601036269426" x="92.48704663212436" y="107.65384615384616" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="认证衔接：CISP/NISP / 华为/深信服认证" mermaidId="n:C4" mermaidBaseStyle="html=1;whiteSpace=wrap;strokeWidth=1;fillColor=light-dark(#ECECFF,#1f2020);strokeColor=light-dark(#9370DB,#cccccc);fontColor=light-dark(#333333,#cccccc);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;" mermaidBaseValue="认证衔接：&#xa;CISP/NISP / 华为/深信服认证" id="Oz5TPtnrnUrGhkk3YbHM-53">
+          <mxCell parent="Oz5TPtnrnUrGhkk3YbHM-49" style="html=1;whiteSpace=wrap;strokeWidth=1;fillColor=light-dark(#ECECFF,#1f2020);strokeColor=light-dark(#9370DB,#cccccc);fontColor=light-dark(#333333,#cccccc);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=10;" vertex="1">
+            <mxGeometry height="25.26923076923077" width="364.5077720207253" x="80.24611398963731" y="150.23076923076923" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="顶岗实习：真实岗位 / 企业导师带教" mermaidId="n:C5" mermaidBaseStyle="html=1;whiteSpace=wrap;strokeWidth=1;fillColor=light-dark(#ECECFF,#1f2020);strokeColor=light-dark(#9370DB,#cccccc);fontColor=light-dark(#333333,#cccccc);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;" mermaidBaseValue="顶岗实习：&#xa;真实岗位 / 企业导师带教" id="Oz5TPtnrnUrGhkk3YbHM-54">
+          <mxCell parent="Oz5TPtnrnUrGhkk3YbHM-49" style="html=1;whiteSpace=wrap;strokeWidth=1;fillColor=light-dark(#ECECFF,#1f2020);strokeColor=light-dark(#9370DB,#cccccc);fontColor=light-dark(#333333,#cccccc);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=10;" vertex="1">
+            <mxGeometry height="25.26923076923077" width="323.7046632124352" x="100.64766839378238" y="192.80769230769232" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="🖥️ L2 - 基础支撑层（用什么平台和资源来教）" mermaidId="n:BS" mermaidBaseStyle="html=1;whiteSpace=wrap;strokeWidth=1;verticalAlign=top;fillColor=light-dark(#ffffde,#1f2020);strokeColor=light-dark(#aaaa33,#cccccc);fontColor=light-dark(#333333,#cccccc);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;" mermaidBaseValue="🖥️ L2 - 基础支撑层（用什么平台和资源来教）" id="Oz5TPtnrnUrGhkk3YbHM-55">
+          <mxCell parent="Oz5TPtnrnUrGhkk3YbHM-34" style="html=1;whiteSpace=wrap;strokeWidth=1;verticalAlign=top;fillColor=light-dark(#ffffde,#1f2020);strokeColor=light-dark(#aaaa33,#cccccc);fontColor=light-dark(#333333,#cccccc);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=9;" vertex="1">
+            <mxGeometry height="190" width="525" x="-154" y="670" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="硬件设施：&#xa;防火墙/IDS/服务器/网络靶场" mermaidId="n:B1" mermaidBaseStyle="html=1;whiteSpace=wrap;strokeWidth=1;fillColor=light-dark(#ECECFF,#1f2020);strokeColor=light-dark(#9370DB,#cccccc);fontColor=light-dark(#333333,#cccccc);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;" mermaidBaseValue="硬件设施：&#xa;防火墙/IDS/服务器/网络靶场" id="Oz5TPtnrnUrGhkk3YbHM-56">
+          <mxCell parent="Oz5TPtnrnUrGhkk3YbHM-55" style="html=1;whiteSpace=wrap;strokeWidth=1;fillColor=light-dark(#ECECFF,#1f2020);strokeColor=light-dark(#9370DB,#cccccc);fontColor=light-dark(#333333,#cccccc);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=9;" vertex="1">
+            <mxGeometry height="27.357001972386588" width="415.9495548961425" x="54.525222551928785" y="23.569787678384966" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="数字资源：&#xa;教学案例库 / 虚拟仿真软件" mermaidId="n:B2" mermaidBaseStyle="html=1;whiteSpace=wrap;strokeWidth=1;fillColor=light-dark(#ECECFF,#1f2020);strokeColor=light-dark(#9370DB,#cccccc);fontColor=light-dark(#333333,#cccccc);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;" mermaidBaseValue="数字资源：&#xa;教学案例库 / 虚拟仿真软件" id="Oz5TPtnrnUrGhkk3YbHM-57">
+          <mxCell parent="Oz5TPtnrnUrGhkk3YbHM-55" style="html=1;whiteSpace=wrap;strokeWidth=1;fillColor=light-dark(#ECECFF,#1f2020);strokeColor=light-dark(#9370DB,#cccccc);fontColor=light-dark(#333333,#cccccc);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=9;" vertex="1">
+            <mxGeometry height="27.357001972386588" width="395.69732937685467" x="65.43026706231454" y="62.958579881656796" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="师资团队：&#xa;双师型教师 / 企业产业导师" mermaidId="n:B3" mermaidBaseStyle="html=1;whiteSpace=wrap;strokeWidth=1;fillColor=light-dark(#ECECFF,#1f2020);strokeColor=light-dark(#9370DB,#cccccc);fontColor=light-dark(#333333,#cccccc);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;" mermaidBaseValue="师资团队：&#xa;双师型教师 / 企业产业导师" id="Oz5TPtnrnUrGhkk3YbHM-58">
+          <mxCell parent="Oz5TPtnrnUrGhkk3YbHM-55" style="html=1;whiteSpace=wrap;strokeWidth=1;fillColor=light-dark(#ECECFF,#1f2020);strokeColor=light-dark(#9370DB,#cccccc);fontColor=light-dark(#333333,#cccccc);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=9;" vertex="1">
+            <mxGeometry height="27.357001972386588" width="395.69732937685467" x="65.43026706231454" y="109.05325443786982" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="合作生态：&#xa;产业学院 / 政行企校协同" mermaidId="n:B4" mermaidBaseStyle="html=1;whiteSpace=wrap;strokeWidth=1;fillColor=light-dark(#ECECFF,#1f2020);strokeColor=light-dark(#9370DB,#cccccc);fontColor=light-dark(#333333,#cccccc);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;" mermaidBaseValue="合作生态：&#xa;产业学院 / 政行企校协同" id="Oz5TPtnrnUrGhkk3YbHM-59">
+          <mxCell parent="Oz5TPtnrnUrGhkk3YbHM-55" style="html=1;whiteSpace=wrap;strokeWidth=1;fillColor=light-dark(#ECECFF,#1f2020);strokeColor=light-dark(#9370DB,#cccccc);fontColor=light-dark(#333333,#cccccc);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=9;" vertex="1">
+            <mxGeometry height="27.36" width="375.165" x="73.5" y="155.15176470588236" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="⚖️ L1 - 贯穿保障层（基线）" mermaidId="n:TH" mermaidBaseStyle="html=1;whiteSpace=wrap;strokeWidth=1;verticalAlign=top;fillColor=light-dark(#ffffde,#1f2020);strokeColor=light-dark(#aaaa33,#cccccc);fontColor=light-dark(#333333,#cccccc);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;" mermaidBaseValue="⚖️ L1 - 贯穿保障层（横切所有层级的基线）" id="Oz5TPtnrnUrGhkk3YbHM-73">
+          <mxCell parent="Oz5TPtnrnUrGhkk3YbHM-34" style="html=1;whiteSpace=wrap;strokeWidth=1;verticalAlign=top;fillColor=light-dark(#ffffde,#1f2020);strokeColor=light-dark(#aaaa33,#cccccc);fontColor=light-dark(#333333,#cccccc);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=12;" vertex="1">
+            <mxGeometry height="760" width="100" x="-360" y="116" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="❤️ 思政育人：总体国家安全观 / 职业道德 / 法律底线" mermaidId="n:T1" mermaidBaseStyle="html=1;whiteSpace=wrap;strokeWidth=1;fillColor=light-dark(#ECECFF,#1f2020);strokeColor=light-dark(#9370DB,#cccccc);fontColor=light-dark(#333333,#cccccc);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;" mermaidBaseValue="❤️ 思政育人：总体国家安全观 / 职业道德 / 法律底线" id="Oz5TPtnrnUrGhkk3YbHM-74">
+          <mxCell parent="Oz5TPtnrnUrGhkk3YbHM-73" style="html=1;whiteSpace=wrap;strokeWidth=1;fillColor=light-dark(#ECECFF,#1f2020);strokeColor=light-dark(#9370DB,#cccccc);fontColor=light-dark(#333333,#cccccc);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=10;" vertex="1">
+            <mxGeometry height="184.03587443946185" width="81.88539741219964" x="9.057301293900185" y="153.36322869955157" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="📋 标准规范：教育部教学标准 / 实训条件标准 / 等保合规" mermaidId="n:T2" mermaidBaseStyle="html=1;whiteSpace=wrap;strokeWidth=1;fillColor=light-dark(#ECECFF,#1f2020);strokeColor=light-dark(#9370DB,#cccccc);fontColor=light-dark(#333333,#cccccc);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;" mermaidBaseValue="📋 标准规范：教育部教学标准 / 实训条件标准 / 等保合规" id="Oz5TPtnrnUrGhkk3YbHM-75">
+          <mxCell parent="Oz5TPtnrnUrGhkk3YbHM-73" style="html=1;whiteSpace=wrap;strokeWidth=1;fillColor=light-dark(#ECECFF,#1f2020);strokeColor=light-dark(#9370DB,#cccccc);fontColor=light-dark(#333333,#cccccc);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=10;" vertex="1">
+            <mxGeometry height="184.03587443946185" width="87.06099815157117" x="6.469500924214419" y="507.8026905829596" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="🎯 L5 - 就业出口层" mermaidId="n:OUT" mermaidBaseStyle="html=1;whiteSpace=wrap;strokeWidth=1;verticalAlign=top;fillColor=light-dark(#ffffde,#1f2020);strokeColor=light-dark(#aaaa33,#cccccc);fontColor=light-dark(#333333,#cccccc);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;" mermaidBaseValue="🎯 L5 - 就业出口层（以终为始的终点）" id="Oz5TPtnrnUrGhkk3YbHM-76">
+          <mxCell parent="Oz5TPtnrnUrGhkk3YbHM-34" style="html=1;whiteSpace=wrap;strokeWidth=1;verticalAlign=top;fillColor=light-dark(#ffffde,#1f2020);strokeColor=light-dark(#aaaa33,#cccccc);fontColor=light-dark(#333333,#cccccc);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;" vertex="1">
+            <mxGeometry height="750" width="130" x="480" y="136" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="安全产品售前工程师" mermaidId="n:O1" mermaidBaseStyle="html=1;whiteSpace=wrap;strokeWidth=1;fillColor=light-dark(#ECECFF,#1f2020);strokeColor=light-dark(#9370DB,#cccccc);fontColor=light-dark(#333333,#cccccc);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;" mermaidBaseValue="安全产品售前工程师" id="Oz5TPtnrnUrGhkk3YbHM-77">
+          <mxCell parent="Oz5TPtnrnUrGhkk3YbHM-76" style="html=1;whiteSpace=wrap;strokeWidth=1;fillColor=light-dark(#ECECFF,#1f2020);strokeColor=light-dark(#9370DB,#cccccc);fontColor=light-dark(#333333,#cccccc);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=10;" vertex="1">
+            <mxGeometry height="61.5501519756839" width="91.44827586206898" x="19.27586206896552" y="136.4446317410175" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="网络与安全运维工程师" mermaidId="n:O2" mermaidBaseStyle="html=1;whiteSpace=wrap;strokeWidth=1;fillColor=light-dark(#ECECFF,#1f2020);strokeColor=light-dark(#9370DB,#cccccc);fontColor=light-dark(#333333,#cccccc);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;" mermaidBaseValue="网络与安全运维工程师" id="Oz5TPtnrnUrGhkk3YbHM-78">
+          <mxCell parent="Oz5TPtnrnUrGhkk3YbHM-76" style="html=1;whiteSpace=wrap;strokeWidth=1;fillColor=light-dark(#ECECFF,#1f2020);strokeColor=light-dark(#9370DB,#cccccc);fontColor=light-dark(#333333,#cccccc);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=10;" vertex="1">
+            <mxGeometry height="61.5501519756839" width="98.62068965517243" x="15.689655172413794" y="232.05990098352825" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="渗透测试工程师" mermaidId="n:O3" mermaidBaseStyle="html=1;whiteSpace=wrap;strokeWidth=1;fillColor=light-dark(#ECECFF,#1f2020);strokeColor=light-dark(#9370DB,#cccccc);fontColor=light-dark(#333333,#cccccc);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;" mermaidBaseValue="渗透测试工程师" id="Oz5TPtnrnUrGhkk3YbHM-79">
+          <mxCell parent="Oz5TPtnrnUrGhkk3YbHM-76" style="html=1;whiteSpace=wrap;strokeWidth=1;fillColor=light-dark(#ECECFF,#1f2020);strokeColor=light-dark(#9370DB,#cccccc);fontColor=light-dark(#333333,#cccccc);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=10;" vertex="1">
+            <mxGeometry height="61.5501519756839" width="77.10344827586208" x="26.448275862068964" y="334.22538856665034" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="安全运营中心分析师" mermaidId="n:O4" mermaidBaseStyle="html=1;whiteSpace=wrap;strokeWidth=1;fillColor=light-dark(#ECECFF,#1f2020);strokeColor=light-dark(#9370DB,#cccccc);fontColor=light-dark(#333333,#cccccc);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;" mermaidBaseValue="安全运营中心分析师" id="Oz5TPtnrnUrGhkk3YbHM-80">
+          <mxCell parent="Oz5TPtnrnUrGhkk3YbHM-76" style="html=1;whiteSpace=wrap;strokeWidth=1;fillColor=light-dark(#ECECFF,#1f2020);strokeColor=light-dark(#9370DB,#cccccc);fontColor=light-dark(#333333,#cccccc);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=10;" vertex="1">
+            <mxGeometry height="61.5501519756839" width="91.44827586206898" x="19.27586206896552" y="439.66598532007805" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="安全评估与等保测评师" mermaidId="n:O5" mermaidBaseStyle="html=1;whiteSpace=wrap;strokeWidth=1;fillColor=light-dark(#ECECFF,#1f2020);strokeColor=light-dark(#9370DB,#cccccc);fontColor=light-dark(#333333,#cccccc);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;" mermaidBaseValue="安全评估与等保测评师" id="Oz5TPtnrnUrGhkk3YbHM-81">
+          <mxCell parent="Oz5TPtnrnUrGhkk3YbHM-76" style="html=1;whiteSpace=wrap;strokeWidth=1;fillColor=light-dark(#ECECFF,#1f2020);strokeColor=light-dark(#9370DB,#cccccc);fontColor=light-dark(#333333,#cccccc);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=10;" vertex="1">
+            <mxGeometry height="61.5501519756839" width="98.62068965517243" x="15.689655172413794" y="541.8314729032002" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="AI安全/云安全工程师&#xa;（新兴岗位）" mermaidId="n:O6" mermaidBaseStyle="html=1;whiteSpace=wrap;strokeWidth=1;fillColor=light-dark(#ECECFF,#1f2020);strokeColor=light-dark(#9370DB,#cccccc);fontColor=light-dark(#333333,#cccccc);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;" mermaidBaseValue="AI安全/云安全工程师&#xa;（新兴岗位）" id="Oz5TPtnrnUrGhkk3YbHM-82">
+          <mxCell parent="Oz5TPtnrnUrGhkk3YbHM-76" style="html=1;whiteSpace=wrap;strokeWidth=1;fillColor=light-dark(#ECECFF,#1f2020);strokeColor=light-dark(#9370DB,#cccccc);fontColor=light-dark(#333333,#cccccc);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=10;" vertex="1">
+            <mxGeometry height="83.2066869300912" width="94.13793103448276" x="17.931034482758623" y="643.9969604863222" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="🧩 L4 - 能力解构层（岗位胜任力模型）" mermaidId="n:AB" mermaidBaseStyle="html=1;whiteSpace=wrap;strokeWidth=1;verticalAlign=top;fillColor=light-dark(#ffffde,#1f2020);strokeColor=light-dark(#aaaa33,#cccccc);fontColor=light-dark(#333333,#cccccc);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;" mermaidBaseValue="🧩 L4 - 能力解构层（岗位胜任力模型）" id="Oz5TPtnrnUrGhkk3YbHM-90">
+          <mxCell parent="Oz5TPtnrnUrGhkk3YbHM-34" style="html=1;whiteSpace=wrap;strokeWidth=1;verticalAlign=top;fillColor=light-dark(#ffffde,#1f2020);strokeColor=light-dark(#aaaa33,#cccccc);fontColor=light-dark(#333333,#cccccc);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=10;" vertex="1">
+            <mxGeometry height="240" width="525" x="-150" y="120" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="售前能力：&#xa;方案撰写 / 产品演示 / 客户沟通" mermaidId="n:A1" mermaidBaseStyle="html=1;whiteSpace=wrap;strokeWidth=1;fillColor=light-dark(#ECECFF,#1f2020);strokeColor=light-dark(#9370DB,#cccccc);fontColor=light-dark(#333333,#cccccc);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;" mermaidBaseValue="售前能力：&#xa;方案撰写 / 产品演示 / 客户沟通" id="Oz5TPtnrnUrGhkk3YbHM-91">
+          <mxCell parent="Oz5TPtnrnUrGhkk3YbHM-90" style="html=1;whiteSpace=wrap;strokeWidth=1;fillColor=light-dark(#ECECFF,#1f2020);strokeColor=light-dark(#9370DB,#cccccc);fontColor=light-dark(#333333,#cccccc);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=10;" vertex="1">
+            <mxGeometry height="23.26693227091633" width="404.2780748663102" x="60.360962566844925" y="14.342629482071711" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="运维能力：&#xa;网络配置 / 防火墙策略 / 故障排查" mermaidId="n:A2" mermaidBaseStyle="html=1;whiteSpace=wrap;strokeWidth=1;fillColor=light-dark(#ECECFF,#1f2020);strokeColor=light-dark(#9370DB,#cccccc);fontColor=light-dark(#333333,#cccccc);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;" mermaidBaseValue="运维能力：&#xa;网络配置 / 防火墙策略 / 故障排查" id="Oz5TPtnrnUrGhkk3YbHM-92">
+          <mxCell parent="Oz5TPtnrnUrGhkk3YbHM-90" style="html=1;whiteSpace=wrap;strokeWidth=1;fillColor=light-dark(#ECECFF,#1f2020);strokeColor=light-dark(#9370DB,#cccccc);fontColor=light-dark(#333333,#cccccc);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=10;" vertex="1">
+            <mxGeometry height="23.26693227091633" width="426.7379679144385" x="49.13101604278075" y="53.545816733067724" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="攻防能力：&#xa;漏洞挖掘 / 渗透测试 / 代码审计" mermaidId="n:A3" mermaidBaseStyle="html=1;whiteSpace=wrap;strokeWidth=1;fillColor=light-dark(#ECECFF,#1f2020);strokeColor=light-dark(#9370DB,#cccccc);fontColor=light-dark(#333333,#cccccc);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;" mermaidBaseValue="攻防能力：&#xa;漏洞挖掘 / 渗透测试 / 代码审计" id="Oz5TPtnrnUrGhkk3YbHM-93">
+          <mxCell parent="Oz5TPtnrnUrGhkk3YbHM-90" style="html=1;whiteSpace=wrap;strokeWidth=1;fillColor=light-dark(#ECECFF,#1f2020);strokeColor=light-dark(#9370DB,#cccccc);fontColor=light-dark(#333333,#cccccc);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=10;" vertex="1">
+            <mxGeometry height="23.26693227091633" width="404.2780748663102" x="60.360962566844925" y="92.74900398406373" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="运营能力：&#xa;安全监控 / 事件研判 / 应急响应" mermaidId="n:A4" mermaidBaseStyle="html=1;whiteSpace=wrap;strokeWidth=1;fillColor=light-dark(#ECECFF,#1f2020);strokeColor=light-dark(#9370DB,#cccccc);fontColor=light-dark(#333333,#cccccc);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;" mermaidBaseValue="运营能力：&#xa;安全监控 / 事件研判 / 应急响应" id="Oz5TPtnrnUrGhkk3YbHM-94">
+          <mxCell parent="Oz5TPtnrnUrGhkk3YbHM-90" style="html=1;whiteSpace=wrap;strokeWidth=1;fillColor=light-dark(#ECECFF,#1f2020);strokeColor=light-dark(#9370DB,#cccccc);fontColor=light-dark(#333333,#cccccc);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=10;" vertex="1">
+            <mxGeometry height="23.26693227091633" width="404.2780748663102" x="60.360962566844925" y="131.95219123505973" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="评估能力：&#xa;风险评估 / 等级保护 / 合规检查" mermaidId="n:A5" mermaidBaseStyle="html=1;whiteSpace=wrap;strokeWidth=1;fillColor=light-dark(#ECECFF,#1f2020);strokeColor=light-dark(#9370DB,#cccccc);fontColor=light-dark(#333333,#cccccc);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;" mermaidBaseValue="评估能力：&#xa;风险评估 / 等级保护 / 合规检查" id="Oz5TPtnrnUrGhkk3YbHM-95">
+          <mxCell parent="Oz5TPtnrnUrGhkk3YbHM-90" style="html=1;whiteSpace=wrap;strokeWidth=1;fillColor=light-dark(#ECECFF,#1f2020);strokeColor=light-dark(#9370DB,#cccccc);fontColor=light-dark(#333333,#cccccc);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=10;" vertex="1">
+            <mxGeometry height="23.26693227091633" width="404.2780748663102" x="60.360962566844925" y="171.15537848605575" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="前沿能力：&#xa;AI安全 / 云原生安全 / 数据安全" mermaidId="n:A6" mermaidBaseStyle="html=1;whiteSpace=wrap;strokeWidth=1;fillColor=light-dark(#ECECFF,#1f2020);strokeColor=light-dark(#9370DB,#cccccc);fontColor=light-dark(#333333,#cccccc);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;" mermaidBaseValue="前沿能力：&#xa;AI安全 / 云原生安全 / 数据安全" id="Oz5TPtnrnUrGhkk3YbHM-96">
+          <mxCell parent="Oz5TPtnrnUrGhkk3YbHM-90" style="html=1;whiteSpace=wrap;strokeWidth=1;fillColor=light-dark(#ECECFF,#1f2020);strokeColor=light-dark(#9370DB,#cccccc);fontColor=light-dark(#333333,#cccccc);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=10;" vertex="1">
+            <mxGeometry height="23.26693227091633" width="401.4705882352941" x="61.76470588235294" y="210.35856573705175" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <mxCell id="Oz5TPtnrnUrGhkk3YbHM-105" parent="Oz5TPtnrnUrGhkk3YbHM-34" style="shape=singleArrow;whiteSpace=wrap;html=1;" value="" vertex="1">
+          <mxGeometry height="40" width="74" x="-254" y="600" as="geometry" />
+        </mxCell>
+        <mxCell id="Oz5TPtnrnUrGhkk3YbHM-126" parent="Oz5TPtnrnUrGhkk3YbHM-34" style="shape=singleArrow;whiteSpace=wrap;html=1;" value="" vertex="1">
+          <mxGeometry height="40" width="74" x="400" y="590" as="geometry" />
+        </mxCell>
+        <UserObject label="⚖️ L0 - 实训生命周期" mermaidId="n:TH" mermaidBaseStyle="html=1;whiteSpace=wrap;strokeWidth=1;verticalAlign=top;fillColor=light-dark(#ffffde,#1f2020);strokeColor=light-dark(#aaaa33,#cccccc);fontColor=light-dark(#333333,#cccccc);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;" mermaidBaseValue="⚖️ L1 - 贯穿保障层（横切所有层级的基线）" id="Oz5TPtnrnUrGhkk3YbHM-98">
+          <mxCell parent="1" style="html=1;whiteSpace=wrap;strokeWidth=1;verticalAlign=top;fillColor=light-dark(#ffffde,#1f2020);strokeColor=light-dark(#aaaa33,#cccccc);fontColor=light-dark(#333333,#cccccc);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=12;" vertex="1">
+            <mxGeometry height="104" width="970" x="-360" y="896" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <mxCell id="Oz5TPtnrnUrGhkk3YbHM-106" edge="1" parent="Oz5TPtnrnUrGhkk3YbHM-98" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;curved=0;shape=flexArrow;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="163" y="55.35111111111109" as="sourcePoint" />
+            <mxPoint x="230.3599999999999" y="55.35111111111109" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <UserObject label="" mermaidId="n:T1" mermaidBaseStyle="html=1;whiteSpace=wrap;strokeWidth=1;fillColor=light-dark(#ECECFF,#1f2020);strokeColor=light-dark(#9370DB,#cccccc);fontColor=light-dark(#333333,#cccccc);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;" mermaidBaseValue="❤️ 思政育人：总体国家安全观 / 职业道德 / 法律底线" id="Oz5TPtnrnUrGhkk3YbHM-99">
+          <mxCell parent="Oz5TPtnrnUrGhkk3YbHM-98" style="html=1;whiteSpace=wrap;strokeWidth=1;fillColor=light-dark(#ECECFF,#1f2020);strokeColor=light-dark(#9370DB,#cccccc);fontColor=light-dark(#333333,#cccccc);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=10;" vertex="1">
+            <mxGeometry height="25.185333333333336" width="72.14" x="50" y="42.75555555555555" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="" mermaidId="n:T1" mermaidBaseStyle="html=1;whiteSpace=wrap;strokeWidth=1;fillColor=light-dark(#ECECFF,#1f2020);strokeColor=light-dark(#9370DB,#cccccc);fontColor=light-dark(#333333,#cccccc);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;" mermaidBaseValue="❤️ 思政育人：总体国家安全观 / 职业道德 / 法律底线" id="Oz5TPtnrnUrGhkk3YbHM-103">
+          <mxCell parent="Oz5TPtnrnUrGhkk3YbHM-98" style="html=1;whiteSpace=wrap;strokeWidth=1;fillColor=light-dark(#ECECFF,#1f2020);strokeColor=light-dark(#9370DB,#cccccc);fontColor=light-dark(#333333,#cccccc);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=10;" vertex="1">
+            <mxGeometry height="25.185333333333336" width="72.14" x="237.36" y="42.75555555555555" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <mxCell id="Oz5TPtnrnUrGhkk3YbHM-108" edge="1" parent="Oz5TPtnrnUrGhkk3YbHM-98" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;curved=0;shape=flexArrow;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="330" y="55.35111111111109" as="sourcePoint" />
+            <mxPoint x="397.3599999999999" y="55.35111111111109" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <UserObject label="" mermaidId="n:T1" mermaidBaseStyle="html=1;whiteSpace=wrap;strokeWidth=1;fillColor=light-dark(#ECECFF,#1f2020);strokeColor=light-dark(#9370DB,#cccccc);fontColor=light-dark(#333333,#cccccc);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;" mermaidBaseValue="❤️ 思政育人：总体国家安全观 / 职业道德 / 法律底线" id="Oz5TPtnrnUrGhkk3YbHM-109">
+          <mxCell parent="Oz5TPtnrnUrGhkk3YbHM-98" style="html=1;whiteSpace=wrap;strokeWidth=1;fillColor=light-dark(#ECECFF,#1f2020);strokeColor=light-dark(#9370DB,#cccccc);fontColor=light-dark(#333333,#cccccc);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=10;" vertex="1">
+            <mxGeometry height="25.185333333333336" width="72.14" x="404.36" y="42.75555555555555" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <mxCell id="Oz5TPtnrnUrGhkk3YbHM-117" edge="1" parent="Oz5TPtnrnUrGhkk3YbHM-98" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;curved=0;shape=flexArrow;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="516" y="55.35111111111109" as="sourcePoint" />
+            <mxPoint x="583.3599999999999" y="55.35111111111109" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <UserObject label="" mermaidId="n:T1" mermaidBaseStyle="html=1;whiteSpace=wrap;strokeWidth=1;fillColor=light-dark(#ECECFF,#1f2020);strokeColor=light-dark(#9370DB,#cccccc);fontColor=light-dark(#333333,#cccccc);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;" mermaidBaseValue="❤️ 思政育人：总体国家安全观 / 职业道德 / 法律底线" id="Oz5TPtnrnUrGhkk3YbHM-118">
+          <mxCell parent="Oz5TPtnrnUrGhkk3YbHM-98" style="html=1;whiteSpace=wrap;strokeWidth=1;fillColor=light-dark(#ECECFF,#1f2020);strokeColor=light-dark(#9370DB,#cccccc);fontColor=light-dark(#333333,#cccccc);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=10;" vertex="1">
+            <mxGeometry height="25.185333333333336" width="72.14" x="590.36" y="42.75555555555555" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <mxCell id="Oz5TPtnrnUrGhkk3YbHM-119" edge="1" parent="Oz5TPtnrnUrGhkk3YbHM-98" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;curved=0;shape=flexArrow;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="697" y="55.35111111111109" as="sourcePoint" />
+            <mxPoint x="764.3599999999999" y="55.35111111111109" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <UserObject label="" mermaidId="n:T1" mermaidBaseStyle="html=1;whiteSpace=wrap;strokeWidth=1;fillColor=light-dark(#ECECFF,#1f2020);strokeColor=light-dark(#9370DB,#cccccc);fontColor=light-dark(#333333,#cccccc);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;" mermaidBaseValue="❤️ 思政育人：总体国家安全观 / 职业道德 / 法律底线" id="Oz5TPtnrnUrGhkk3YbHM-120">
+          <mxCell parent="Oz5TPtnrnUrGhkk3YbHM-98" style="html=1;whiteSpace=wrap;strokeWidth=1;fillColor=light-dark(#ECECFF,#1f2020);strokeColor=light-dark(#9370DB,#cccccc);fontColor=light-dark(#333333,#cccccc);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=10;" vertex="1">
+            <mxGeometry height="25.185333333333336" width="72.14" x="771.36" y="42.75555555555555" as="geometry" />
+          </mxCell>
+        </UserObject>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
