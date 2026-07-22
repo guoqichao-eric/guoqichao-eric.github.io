@@ -1,122 +1,699 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
-  "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<!DOCTYPE html>
+<html>
 <head>
-<meta name="generator" content="jemdoc, see http://jemdoc.jaboc.net/" />
-<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-<link rel="stylesheet" href="jemdoc.css" type="text/css" />
-<title>Wei WANG-SDUFE </title>
-  <style type="text/css"> 
-<!-- 
-body{ 
-line-height:300% 
-} 
---> 
-</style> 
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://unpkg.com" />
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <script src="https://unpkg.com/@fortawesome/fontawesome-free@6.7.2/js/all.min.js"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    * {
+      scrollbar-width: none;
+      scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
+    }
+  </style>
 </head>
-<body>
-<table summary="Table for page layout." id="tlayout">
-<tr valign="top">
-<td id="layout-menu">
-<div class="menu-category">目录（Home）</div>
-<div class="menu-item"><a href="index.html" class="current">简介（Bio）</a></div>
-<div class="menu-item"><a href="publications.html">科研（Research）</a></div>
-<div class="menu-item"><a href="teaching.html">教学（Teaching）</a></div>
-<div class="menu-item"><a href="learn.html">学习（Learning）</a></div>
-<div class="menu-item"><a href="cv.html">简历（CV）</a></div>
-<div class="menu-item"><a href="life.html">生活（Life）</a></div>
-<div class="menu-item" style="margin: 15px"><a href="https://orcid.org/0000-0001-7213-6300" class="icon-link"><img src="ORCID_iD.svg.png" width="30px" height="30px" /></a></div>
-<div class="menu-item" style="margin: 15px"><a href="mailto:wangwei_0115@outlook.com">
-    <img src="Email.png" alt="Email Icon" style="width:30px;height:30px;">
-</a></div>
-<div class="menu-item" style="margin: 15px"><a href="https://github.com/taotao0711" class="icon-link"><img src="github_logo.png" width="30px" height="30px" /></a></div>
 
-</td>
-<td id="layout-content">
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-150369356-1"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+<body class="bg-white text-gray-800 font-body">
 
-  gtag('config', 'UA-150369356-1');
-</script>
-  
-  
-<h1>郭启超(Qichao Guo)</h1>
-<table class="imgtable"><tr><td>
-<img src="WangWei.jpg" alt="300" width="250px" />&nbsp;</td>
-<td align="left">
+<link href="https://fonts.googleapis.cn/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&family=Noto+Serif+SC:wght@400;600;700&family=Playfair+Display:wght@400;600;700;900&display=swap" rel="stylesheet">
 
-<p>
-郭启超(Qichao Guo)<br />
-SDCIT电子与通信系<br />
-(Assistant Professor at School of Statistics and Mathematics, Shandong University of Finance and Economics.)<br /> </p>
- <p>
-联系方式 （Contact Information）: 
-<br />Email:wangwei_0115@outlook.com<br />
-通讯地址: 山东省济南市历下区二环东路7366号，邮编: 250014。<br />
-(Mailing Address: No. 7366 Erhuan East Road, Jinan City, Shandong Province, Shandong University of Finance and Economics,
-P.R. China. Post Code: 250014)
-   
-    <p> 
-   <font color="#46A3FF"><b>长期招聘（邮箱联系）</b> （Recruitment）</font><br> 
-     </p></li></ul>
-       <ul><li><p><font color="#46A3FF"><b> 科研助理 （Research Asistant）</b></font><br> 
-     研究方向：计量理论,统计模型,中国经济实证<br> 
-       薪资待遇：学生科研助理 600元/月
-    </p></li></ul> 
+<style type="text/tailwindcss">
+@theme {
+  --color-primary: #2c2c2e;
+  --color-primary-light: #3a3d42;
+  --color-accent: #4a6fa5;
+  --color-accent-green: #5b7fa6;
+  --color-surface: #f5f6f8;
+  --color-surface-alt: #f0f2f5;
+  --font-body: 'Noto Sans SC', sans-serif;
+  --font-serif: 'Noto Serif SC', serif;
+  --font-display: 'Playfair Display', serif;
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@utility animate-fade-in-up {
+  animation: fadeInUp 0.6s ease-out both;
+}
+</style>
+
+<style>
+.scroll-section { animation: fadeInUp 0.6s ease-out both; }
+html { scroll-behavior: smooth; }
+.timeline-item.collapsed { display: none; }
+.project-item.collapsed { display: none; }
+</style>
+
+<!-- Navigation -->
+<nav id="navbar" class="fixed top-0 left-0 right-0 z-50 bg-[#2c2c2e] backdrop-blur-sm border-b border-gray-700/30 transition-shadow duration-300">
+  <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+    <a href="#hero" class="font-serif text-white text-lg font-bold tracking-wide">郭启超</a>
+    <div class="hidden md:flex items-center gap-7 text-sm font-medium text-gray-300">
+      <a href="#research" class="hover:text-white transition-colors nav-link">技术专长</a>
+      <a href="#stats" class="hover:text-white transition-colors nav-link">学术成果</a>
+      <a href="#experience" class="hover:text-white transition-colors nav-link">工作经历</a>
+      <a href="#publications" class="hover:text-white transition-colors nav-link">论文</a>
+      <a href="#patents" class="hover:text-white transition-colors nav-link">专利/软著</a>
+      <a href="#projects" class="hover:text-white transition-colors nav-link">项目</a>
+      <a href="#certs" class="hover:text-white transition-colors nav-link">证书</a>
+      <a href="#contact" class="hover:text-white transition-colors nav-link">联系方式</a>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero Section -->
+<section id="hero" class="pt-28 pb-20 bg-[#f5f6f8]">
+  <div class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-center gap-12">
+    <div class="shrink-0">
+      <div class="w-48 h-48 rounded-full overflow-hidden border-4 border-white shadow-xl ring-2 ring-primary/10">
+        <img src="https://bkimg.cdn.bcebos.com/pic/ae51f3deb48f8c54f4f3d62a37292df5e0fe7f96" alt="郭启超" class="w-full h-full object-cover">
+      </div>
+    </div>
+    <div class="flex-1 text-center md:text-left">
+      <h1 class="font-serif text-4xl md:text-5xl font-bold text-primary mb-1">郭启超</h1>
+      <p class="font-display text-xl text-gray-500 mb-4 italic">Guo Qichao</p>
+      <p class="text-lg text-gray-700 mb-4">高级工程师 | 专任教师 <span class="text-gray-400 mx-2">·</span> 山东信息职业技术学院 · 网络安全专业</p>
+      <div class="flex flex-wrap justify-center md:justify-start gap-2 mb-5">
+        <span class="px-3 py-1 bg-primary/8 text-primary text-sm rounded-full font-medium">AI大模型与智能体</span>
+        <span class="px-3 py-1 bg-primary/8 text-primary text-sm rounded-full font-medium">5G核心网</span>
+        <span class="px-3 py-1 bg-primary/8 text-primary text-sm rounded-full font-medium">云计算与容器化</span>
+        <span class="px-3 py-1 bg-primary/8 text-primary text-sm rounded-full font-medium">网络安全</span>
+        <span class="px-3 py-1 bg-primary/8 text-primary text-sm rounded-full font-medium">DevOps与自动化运维</span>
+      </div>
+      <p class="text-gray-600 leading-relaxed max-w-2xl font-serif text-[15px] mb-6">拥有近20年高校与ICT行业工作经验，先后从事过教学、4/5G电信网络支撑、核心网计费技术支持、IT项目管理、部门管理等多岗位；积累了软件开发、产品全流程交付、工程师体系化培养经验，具备技术落地与商业价值转化的能力；现专注于AI智能体协同开发、5G核心网自动化运维、网络安全等领域的教学与研究。</p>
+      <div class="flex flex-wrap justify-center md:justify-start items-center gap-4">
+        <a href="#" class="inline-flex items-center gap-2 px-5 py-2.5 bg-primary text-white rounded-lg text-sm font-medium hover:bg-primary-light transition-colors shadow-md shadow-primary/20">
+          <i data-lucide="download" class="w-4 h-4"></i> 下载简历 (CV)
+        </a>
+        <a href="http://guoqichao-eric.github.io" class="text-gray-500 hover:text-primary transition-colors" title="GitHub">
+          <i class="fa-brands fa-github text-xl"></i>
+        </a>
+        <a href="#" class="text-gray-500 hover:text-primary transition-colors" title="LinkedIn">
+          <i class="fa-brands fa-linkedin text-xl"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Technical Expertise (Research Directions → 技术专长) -->
+<section id="research" class="py-20 bg-white">
+  <div class="max-w-6xl mx-auto px-6">
+    <h2 class="font-serif text-3xl font-bold text-primary mb-2 text-center">技术专长</h2>
+    <p class="text-gray-500 text-center mb-12">Technical Expertise</p>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div class="group p-6 bg-surface rounded-xl border border-gray-100 hover:border-accent/30 hover:shadow-lg hover:shadow-gray-200/60 transition-all duration-300">
+        <div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4 group-hover:bg-primary/15 transition-colors">
+          <i data-lucide="brain" class="w-6 h-6 text-primary"></i>
+        </div>
+        <h3 class="font-bold text-gray-800 mb-2">AI智能体开发</h3>
+        <p class="text-sm text-gray-500 leading-relaxed">掌握DeepSeek、Qwen等大模型架构部署，熟练运用DS/Gemini/OpenAI/Claude结合开源框架，完成RAG知识库与AI智能体开发。</p>
+      </div>
+      <div class="group p-6 bg-surface rounded-xl border border-gray-100 hover:border-accent/30 hover:shadow-lg hover:shadow-gray-200/60 transition-all duration-300">
+        <div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4 group-hover:bg-primary/15 transition-colors">
+          <i data-lucide="radio-tower" class="w-6 h-6 text-primary"></i>
+        </div>
+        <h3 class="font-bold text-gray-800 mb-2">5G核心网技术</h3>
+        <p class="text-sm text-gray-500 leading-relaxed">专注5G专网、边缘计算、UPF技术架构，参与中国移动多期5G商用网络集采测试与FOA技术验证。</p>
+      </div>
+      <div class="group p-6 bg-surface rounded-xl border border-gray-100 hover:border-accent/30 hover:shadow-lg hover:shadow-gray-200/60 transition-all duration-300">
+        <div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4 group-hover:bg-primary/15 transition-colors">
+          <i data-lucide="cloud" class="w-6 h-6 text-primary"></i>
+        </div>
+        <h3 class="font-bold text-gray-800 mb-2">云计算与容器化</h3>
+        <p class="text-sm text-gray-500 leading-relaxed">深度参与爱立信电信云平台（CEE虚拟化/CCD容器化）集成交付，掌握OpenStack/Kubernetes核心技术。</p>
+      </div>
+      <div class="group p-6 bg-surface rounded-xl border border-gray-100 hover:border-accent/30 hover:shadow-lg hover:shadow-gray-200/60 transition-all duration-300">
+        <div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4 group-hover:bg-primary/15 transition-colors">
+          <i data-lucide="shield-check" class="w-6 h-6 text-primary"></i>
+        </div>
+        <h3 class="font-bold text-gray-800 mb-2">网络安全工程</h3>
+        <p class="text-sm text-gray-500 leading-relaxed">持有CISP认证及高级网络信息安全工程师证书，参与运营商HW安全保障及网络渗透测试技术支持。</p>
+      </div>
+      <div class="group p-6 bg-surface rounded-xl border border-gray-100 hover:border-accent/30 hover:shadow-lg hover:shadow-gray-200/60 transition-all duration-300">
+        <div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4 group-hover:bg-primary/15 transition-colors">
+          <i data-lucide="database" class="w-6 h-6 text-primary"></i>
+        </div>
+        <h3 class="font-bold text-gray-800 mb-2">大数据</h3>
+        <p class="text-sm text-gray-500 leading-relaxed">熟悉Flink+Kafka实时大数据架构，精通PostgreSQL/MySQL/MongoDB系统管理与性能优化。</p>
+      </div>
+      <div class="group p-6 bg-surface rounded-xl border border-gray-100 hover:border-accent/30 hover:shadow-lg hover:shadow-gray-200/60 transition-all duration-300">
+        <div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4 group-hover:bg-primary/15 transition-colors">
+          <i data-lucide="terminal" class="w-6 h-6 text-primary"></i>
+        </div>
+        <h3 class="font-bold text-gray-800 mb-2">DevOps与自动化运维</h3>
+        <p class="text-sm text-gray-500 leading-relaxed">熟悉Scrum/DevOps，掌握Ansible/Puppet/Python/Perl，主持开发多个自动化运维平台。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Academic Stats -->
+<section id="stats" class="py-16 bg-[#2c2c2e]">
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+          </div>
+  </div>
+</section> 
+
+<!-- Work Experience Timeline -->
+<section id="experience" class="py-20 bg-white">
+  <div class="max-w-6xl mx-auto px-6">
+    <h2 class="font-serif text-3xl font-bold text-primary mb-2 text-center">工作经历</h2>
+    <p class="text-gray-500 text-center mb-12">Career Timeline</p>
+    <div class="max-w-3xl mx-auto relative">
+      <div class="absolute left-4 md:left-6 top-0 bottom-0 w-px bg-gray-200"></div>
       
-     
-     
-</p>
-</td></tr></table>
+      <!-- Item 1 - Current -->
+      <div class="relative pl-12 md:pl-16 pb-10 group">
+        <div class="absolute left-2.5 md:left-4.5 top-1.5 w-3 h-3 rounded-full bg-accent border-2 border-white shadow"></div>
+        <p class="text-sm text-accent font-semibold mb-1">2026.04 — 至今</p>
+        <h3 class="font-bold text-gray-800">专任教师</h3>
+        <p class="text-gray-600 text-sm">山东信息职业技术学院 · 网络安全专业</p>
+        <p class="text-gray-500 text-sm mt-1">负责网络安全专业的教学任务，致力于将行业实践经验融入人才培养。</p>
+      </div>
+
+      <!-- Item 2 -->
+      <div class="relative pl-12 md:pl-16 pb-10">
+        <div class="absolute left-2.5 md:left-4.5 top-1.5 w-3 h-3 rounded-full bg-primary/40 border-2 border-white shadow"></div>
+        <p class="text-sm text-gray-500 font-semibold mb-1">2023.06 — 2026.03</p>
+        <h3 class="font-bold text-gray-800">解决方案架构师</h3>
+        <p class="text-gray-600 text-sm">爱立信（中国）通信有限公司 · 数字服务业务部</p>
+        <p class="text-gray-500 text-sm mt-1">聚焦AI大模型产品交付与实施，主导本地化开发适配；完成容器化网管平台改造及无线网AI智能板CP5-CP7集采测试；搭建基于RAG框架的北方区技术支持知识库；开发基于Glean/N8N平台的差旅合规预检、邮件管理等AI智能体应用。</p>
+      </div>
+
+      <!-- Item 3 -->
+      <div class="relative pl-12 md:pl-16 pb-10">
+        <div class="absolute left-2.5 md:left-4.5 top-1.5 w-3 h-3 rounded-full bg-primary/40 border-2 border-white shadow"></div>
+        <p class="text-sm text-gray-500 font-semibold mb-1">2016.11 — 2023.06</p>
+        <h3 class="font-bold text-gray-800">部门经理</h3>
+        <p class="text-gray-600 text-sm">爱立信（中国）通信有限公司 · 数字服务业务部</p>
+        <p class="text-gray-500 text-sm mt-1">将部门从19人扩展至53人；拓展业务至计费系统、AI能力开发、云平台技术支持和定制化软件开发；主持开发《网管自动健康检查及告警软件》《PMT性能数据监控软件》《爱立信计费5G核心网CHF网元信令跟踪系统》等产品；通过多技能培养优化交付成本，每年节约20余万元。</p>
+      </div>
+
+      <!-- Item 4 -->
+      <div class="relative pl-12 md:pl-16 pb-10">
+        <div class="absolute left-2.5 md:left-4.5 top-1.5 w-3 h-3 rounded-full bg-primary/40 border-2 border-white shadow"></div>
+        <p class="text-sm text-gray-500 font-semibold mb-1">2014.12 — 2016.11</p>
+        <h3 class="font-bold text-gray-800">项目经理</h3>
+        <p class="text-gray-600 text-sm">爱立信（中国）通信有限公司 · 数字服务业务部PMO</p>
+        <p class="text-gray-500 text-sm mt-1">作为技术组长和项目经理参与山东移动第一期5G商用网络建设；负责OMC、BSS、MANO等产品交付，围绕XLPM（基于PMI体系）实现项目交付标准化与流程化。</p>
+      </div>
+
+      <!-- Item 5 - Collapsed by default -->
+      <div class="relative pl-12 md:pl-16 pb-10 timeline-item collapsed" id="timeline-extra-1">
+        <div class="absolute left-2.5 md:left-4.5 top-1.5 w-3 h-3 rounded-full bg-primary/40 border-2 border-white shadow"></div>
+        <p class="text-sm text-gray-500 font-semibold mb-1">2010.11 — 2014.11</p>
+        <h3 class="font-bold text-gray-800">系统工程师</h3>
+        <p class="text-gray-600 text-sm">爱立信（中国）通信有限公司 · 技术服务支持中心GTC/EOC SI</p>
+        <p class="text-gray-500 text-sm mt-1">对GPON光网络、IP数通、OMC产品进行现场/远程技术支持；参与山东移动连续四期4G LTE商用网络建设（2012-2015）；2015年开发《网管自动过滤告警及网元故障自愈合》工具（Python），荣获山东移动自动化运维创新奖。</p>
+      </div>
+
+      <!-- Item 6 - Collapsed by default -->
+      <div class="relative pl-12 md:pl-16 timeline-item collapsed" id="timeline-extra-2">
+        <div class="absolute left-2.5 md:left-4.5 top-1.5 w-3 h-3 rounded-full bg-primary/40 border-2 border-white shadow"></div>
+        <p class="text-sm text-gray-500 font-semibold mb-1"></p>
+        <h3 class="font-bold text-gray-800">教师</h3>
+        <p class="text-gray-600 text-sm">山东电子职业技术学院 · 计算机系</p>
+        <p class="text-gray-500 text-sm mt-1">留校从事实验指导及计算机网络、硬件组装与维修（数据恢复方向）、数据库等课程教学；连续多年获"优秀教育工作者"；2次代表山东省参加全国计算机调试员大赛，获团队一等奖和"山东省电子信息行业技术能手"称号；参与《计算机组装与维修》山东省省级高校精品课程编写。</p>
+      </div>
+
+      <!-- Toggle Button -->
+      <div class="text-center mt-6">
+        <button id="timeline-toggle" onclick="toggleTimeline()" class="inline-flex items-center gap-2 px-4 py-2 text-sm text-accent hover:text-accent/80 transition-colors font-medium">
+          <i data-lucide="chevron-down" class="w-4 h-4" id="timeline-icon"></i> 展开更多经历
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Publications -->
+<section id="publications" class="py-20 bg-surface">
+  <div class="max-w-6xl mx-auto px-6">
+    <h2 class="font-serif text-3xl font-bold text-primary mb-2 text-center">发表论文</h2>
+    <p class="text-gray-500 text-center mb-12">Publications</p>
+    <div class="space-y-5 max-w-4xl mx-auto">
+
+      <div class="bg-white rounded-xl p-6 border border-gray-100 shadow-sm hover:shadow-md hover:shadow-gray-200/80 transition-shadow">
+        <div class="flex items-start gap-4">
+          <span class="text-2xl font-display font-bold text-primary/20">01</span>
+          <div class="flex-1">
+            <h3 class="font-bold text-gray-800 mb-1">智能建筑中通信自动化技术的应用探析</h3>
+            <p class="text-sm text-gray-600 mb-2"><span class="underline font-medium">郭启超</span></p>
+            <p class="text-sm italic text-gray-500">数字化用户</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-xl p-6 border border-gray-100 shadow-sm hover:shadow-md hover:shadow-gray-200/80 transition-shadow">
+        <div class="flex items-start gap-4">
+          <span class="text-2xl font-display font-bold text-primary/20">02</span>
+          <div class="flex-1">
+            <h3 class="font-bold text-gray-800 mb-1">数字化管理手段在建筑工程施工中的应用</h3>
+            <p class="text-sm text-gray-600 mb-2"><span class="underline font-medium">郭启超</span></p>
+            <p class="text-sm italic text-gray-500">地产</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-xl p-6 border border-gray-100 shadow-sm hover:shadow-md hover:shadow-gray-200/80 transition-shadow">
+        <div class="flex items-start gap-4">
+          <span class="text-2xl font-display font-bold text-primary/20">03</span>
+          <div class="flex-1">
+            <h3 class="font-bold text-gray-800 mb-1">微服务架构中API接口安全防护技术研究</h3>
+            <p class="text-sm text-gray-600 mb-2"><span class="underline font-medium">郭启超</span></p>
+            <p class="text-sm italic text-gray-500">电商</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-xl p-6 border border-gray-100 shadow-sm hover:shadow-md hover:shadow-gray-200/80 transition-shadow">
+        <div class="flex items-start gap-4">
+          <span class="text-2xl font-display font-bold text-primary/20">04</span>
+          <div class="flex-1">
+            <h3 class="font-bold text-gray-800 mb-1">分布式防火墙系统设计与网络流量过滤技术</h3>
+            <p class="text-sm text-gray-600 mb-2"><span class="underline font-medium">郭启超</span></p>
+            <p class="text-sm italic text-gray-500">电脑采购</p>
+          </div>
+        </div>
+      </div>
+      <div class="bg-white rounded-xl p-6 border border-gray-100 shadow-sm hover:shadow-md hover:shadow-gray-200/80 transition-shadow">
+        <div class="flex items-start gap-4">
+          <span class="text-2xl font-display font-bold text-primary/20">04</span>
+          <div class="flex-1">
+            <h3 class="font-bold text-gray-800 mb-1">《电信行业安全攻防演练标准》编制</h3>
+            <p class="text-sm text-gray-600 mb-2"><span class="underline font-medium"></span></p>
+            <p class="text-sm italic text-gray-500">工业和信息化部</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- Patents & Copyrights -->
+<section id="patents" class="py-20 bg-white">
+  <div class="max-w-6xl mx-auto px-6">
+    <h2 class="font-serif text-3xl font-bold text-primary mb-2 text-center">专利与软件著作权</h2>
+    <p class="text-gray-500 text-center mb-12">Patents & Copyrights</p>
     
-<h2>研究兴趣(Research Interests)：</h2>
+    <!-- Patents Table -->
+    <div class="max-w-4xl mx-auto mb-12">
+      <h3 class="font-serif text-xl font-bold text-primary mb-4 flex items-center gap-2">
+        <i data-lucide="file-badge" class="w-5 h-5 text-accent"></i> 发明专利（7项）
+      </h3>
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="border-b-2 border-primary/10 text-left">
+              <th class="pb-3 font-semibold text-primary w-8">#</th>
+              <th class="pb-3 font-semibold text-primary">专利名称</th>
+              <th class="pb-3 font-semibold text-primary">专利号</th>
+              <th class="pb-3 font-semibold text-primary">状态</th>
+            </tr>
+          </thead>
+          <tbody class="text-gray-700">
+            <tr class="border-b border-gray-100">
+              <td class="py-3.5 text-gray-400">1</td>
+              <td class="py-3.5">基于云边协同的数据信息传输方法</td>
+              <td class="text-gray-500">CN120281773B</td>
+              <td><span class="px-2 py-0.5 bg-green-50 text-green-700 text-xs rounded font-medium">已授权</span></td>
+            </tr>
+            <tr class="border-b border-gray-100">
+              <td class="py-3.5 text-gray-400">2</td>
+              <td class="py-3.5">一种阳极炭块抗压强度预测方法</td>
+              <td class="text-gray-500">CN120108608B</td>
+              <td><span class="px-2 py-0.5 bg-green-50 text-green-700 text-xs rounded font-medium">已授权</span></td>
+            </tr>
+            <tr class="border-b border-gray-100">
+              <td class="py-3.5 text-gray-400">3</td>
+              <td class="py-3.5">一种仿生鱼机器人水下运动控制系统</td>
+              <td class="text-gray-500">CN120085683B</td>
+              <td><span class="px-2 py-0.5 bg-green-50 text-green-700 text-xs rounded font-medium">已授权</span></td>
+            </tr>
+            <tr class="border-b border-gray-100">
+              <td class="py-3.5 text-gray-400">4</td>
+              <td class="py-3.5">一种自动助力转向系统控制方法</td>
+              <td class="text-gray-500">CN120281773B</td>
+              <td><span class="px-2 py-0.5 bg-green-50 text-green-700 text-xs rounded font-medium">已授权</span></td>
+            </tr>
+            <tr class="border-b border-gray-100">
+              <td class="py-3.5 text-gray-400">5</td>
+              <td class="py-3.5">基于大数据的医疗仓库管理办法</td>
+              <td class="text-gray-500">—</td>
+              <td><span class="px-2 py-0.5 bg-amber-50 text-amber-700 text-xs rounded font-medium">已公布</span></td>
+            </tr>
+            <tr class="border-b border-gray-100">
+              <td class="py-3.5 text-gray-400">6</td>
+              <td class="py-3.5">一种建筑内部通信电信号处理方法</td>
+              <td class="text-gray-500">CN120281773B</td>
+              <td><span class="px-2 py-0.5 bg-green-50 text-green-700 text-xs rounded font-medium">已授权</span></td>
+            </tr>
+            <tr>
+              <td class="py-3.5 text-gray-400">7</td>
+              <td class="py-3.5">一种面向肺炎影像的CT图像自适应增强方法</td>
+              <td class="text-gray-500">CN120707428A</td>
+              <td><span class="px-2 py-0.5 bg-green-50 text-green-700 text-xs rounded font-medium">已授权</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
 
-<ul><li><p><font color="#46A3FF"><b>计量理论与应用研究 </b>(Econometrics Theory and Its Application)</font><br>
- 面板数据 (Panel Data); 网络数据 (Network Data); 稳健推断(Robust Inference).</p></li></ul>
-<ul><li><p><font color="#46A3FF"><b>机器学习与应用研究</b> (Machine Learning and Its Application)</font><br>
- 异质性数据(Heterogeneous Data); 强化学习在计量经济学中的应用 (Reinforcement Learning). </p></li></ul>
-<ul><li><p><font color="#46A3FF"><c>中国经济：</b> (China Economy)</font><br>
-政策效应评价(Policy Evaluation); 经济预测(Economic Forecasting). </p></li></ul>
+    <!-- Copyrights Table -->
+    <div class="max-w-4xl mx-auto">
+      <h3 class="font-serif text-xl font-bold text-primary mb-4 flex items-center gap-2">
+        <i data-lucide="code-2" class="w-5 h-5 text-accent"></i> 软件著作权（5项）
+      </h3>
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="border-b-2 border-primary/10 text-left">
+              <th class="pb-3 font-semibold text-primary w-8">#</th>
+              <th class="pb-3 font-semibold text-primary">软件名称</th>
+              <th class="pb-3 font-semibold text-primary">登记号</th>
+              <th class="pb-3 font-semibold text-primary">年份</th>
+            </tr>
+          </thead>
+          <tbody class="text-gray-700">
+            <tr class="border-b border-gray-100">
+              <td class="py-3.5 text-gray-400">1</td>
+              <td class="py-3.5">ENM服务器Pipeline自动升级软件</td>
+              <td class="text-gray-500">2025SR1380252</td>
+              <td>2025</td>
+            </tr>
+            <tr class="border-b border-gray-100">
+              <td class="py-3.5 text-gray-400">2</td>
+              <td class="py-3.5">5G无线网1Min北向管理系统</td>
+              <td class="text-gray-500">2025SR0188393</td>
+              <td>2025</td>
+            </tr>
+            <tr class="border-b border-gray-100">
+              <td class="py-3.5 text-gray-400">3</td>
+              <td class="py-3.5">数据安全与容灾备份管理系统</td>
+              <td class="text-gray-500">2024SR1617218</td>
+              <td>2024</td>
+            </tr>
+            <tr class="border-b border-gray-100">
+              <td class="py-3.5 text-gray-400">4</td>
+              <td class="py-3.5">人工智能预测评估系统</td>
+              <td class="text-gray-500">2024SR1141621</td>
+              <td>2024</td>
+            </tr>
+            <tr>
+              <td class="py-3.5 text-gray-400">5</td>
+              <td class="py-3.5">EleStar大数据存储库运维管理系统</td>
+              <td class="text-gray-500">2023SR1215366</td>
+              <td>2023</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
 
-  
-<h2>学术及社会兼职(Professional Affiliations):</h2>
-  
-<ul><li><p>济南应用数学高等研究院研究员</p></li></ul>
-<ul><li><p>《应用统计与数据科学》期刊编委</p></li></ul>
-<ul><li><p>Referee for Journals:《Economic Modelling》,《The Singapore Economic Review》,
-  《International Journal of Data Science and Analytics》,《Communications in Mathematics and Statistics》.
-</p></li></ul>
-<!--<ul><li><p>PC member/reviewer of the KDD</p></li></ul>-->  
+<!-- Representative Projects -->
+<section id="projects" class="py-20 bg-surface">
+  <div class="max-w-6xl mx-auto px-6">
+    <h2 class="font-serif text-3xl font-bold text-primary mb-2 text-center">代表项目</h2>
+    <p class="text-gray-500 text-center mb-12">Representative Projects</p>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto">
 
+      <div class="bg-white rounded-xl p-6 border border-gray-100 shadow-sm hover:shadow-md hover:shadow-gray-200/80 transition-shadow">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="px-2 py-0.5 bg-accent/10 text-accent text-xs rounded font-semibold">解决方案架构师</span>
+          <span class="text-xs text-gray-400">2025/10—2026/3</span>
+        </div>
+        <h3 class="font-bold text-gray-800 mb-1 text-[15px]">河北移动智能北向、1分钟PM数据采集架构改造项目和中国移动5G无线网CP7 FOA测试项目</h3>
+      </div>
 
+      <div class="bg-white rounded-xl p-6 border border-gray-100 shadow-sm hover:shadow-md hover:shadow-gray-200/80 transition-shadow">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="px-2 py-0.5 bg-accent/10 text-accent text-xs rounded font-semibold">技术负责人</span>
+          <span class="text-xs text-gray-400">2025/05—2025/08</span>
+        </div>
+        <h3 class="font-bold text-gray-800 mb-1 text-[15px]">北京联通网络渗透HW技术支持（中央网信办/工信部/公安部三部委检查）</h3>
+      </div>
 
- <h2> 科研项目(Project):</h2>
-<b>2022年</b>
- <ul><li><p>山东省自然科学基金青年项目，分位数因子增广的面板数据模型及其应用研究，ZR2022QA109，2023.01至2025.12。 </p></li></ul>
- 
+      <div class="bg-white rounded-xl p-6 border border-gray-100 shadow-sm hover:shadow-md hover:shadow-gray-200/80 transition-shadow">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="px-2 py-0.5 bg-accent/10 text-accent text-xs rounded font-semibold">负责人</span>
+          <span class="text-xs text-gray-400">2025/02—2025/04</span>
+        </div>
+        <h3 class="font-bold text-gray-800 mb-1 text-[15px]">中国移动CP7无线网AI智能板CMCC集团采集测试项目</h3>
+      </div>
 
-  
- <!--<h2>教育背景(Education Background)：</h2>-->
-<!--<ul><li><p>Aug., 2021- Aug., 2022     Post-doc of  University of Alberta, Canada</p></li></ul>-->
+      <div class="bg-white rounded-xl p-6 border border-gray-100 shadow-sm hover:shadow-md hover:shadow-gray-200/80 transition-shadow">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="px-2 py-0.5 bg-accent/10 text-accent text-xs rounded font-semibold">架构师</span>
+          <span class="text-xs text-gray-400">2024/02—2024/07</span>
+        </div>
+        <h3 class="font-bold text-gray-800 mb-1 text-[15px]">中国联通集团AI能力上台项目</h3>
+      </div>
 
+      <div class="bg-white rounded-xl p-6 border border-gray-100 shadow-sm hover:shadow-md hover:shadow-gray-200/80 transition-shadow">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="px-2 py-0.5 bg-accent/10 text-accent text-xs rounded font-semibold">主持</span>
+          <span class="text-xs text-gray-400">2023/03—2023/12</span>
+        </div>
+        <h3 class="font-bold text-gray-800 mb-1 text-[15px]">中国移动爱立信容器化网管平台改造和FOA测试项目</h3>
+      </div>
 
-  
-<!--<h2>获奖及荣誉 (Awards and Honors)</h2>-->  
+      <div class="bg-white rounded-xl p-6 border border-gray-100 shadow-sm hover:shadow-md hover:shadow-gray-200/80 transition-shadow">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="px-2 py-0.5 bg-accent/10 text-accent text-xs rounded font-semibold">主持</span>
+          <span class="text-xs text-gray-400">2021/11—2022/06</span>
+        </div>
+        <h3 class="font-bold text-gray-800 mb-1 text-[15px]">中国移动智慧中台AI能力上台（AMF网元性能预测）项目</h3>
+      </div>
 
- 
+      <!-- Collapsed projects -->
+      <div class="bg-white rounded-xl p-6 border border-gray-100 shadow-sm project-item collapsed" id="project-extra-1">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="px-2 py-0.5 bg-accent-green/10 text-accent-green text-xs rounded font-semibold">参与</span>
+          <span class="text-xs text-gray-400">2024/08—2024/11</span>
+        </div>
+        <h3 class="font-bold text-gray-800 mb-1 text-[15px]">苏州移动"通感一体"6G网络测试</h3>
+      </div>
 
+      <div class="bg-white rounded-xl p-6 border border-gray-100 shadow-sm project-item collapsed" id="project-extra-2">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="px-2 py-0.5 bg-accent-green/10 text-accent-green text-xs rounded font-semibold">参与</span>
+          <span class="text-xs text-gray-400">2021/03—2022/01</span>
+        </div>
+        <h3 class="font-bold text-gray-800 mb-1 text-[15px]">中国移动5GC SA虚拟化核心网CP1-CP2</h3>
+      </div>
 
-<div id="footer">
-<div id="footer-text">
+      <div class="bg-white rounded-xl p-6 border border-gray-100 shadow-sm project-item collapsed" id="project-extra-3">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="px-2 py-0.5 bg-accent-green/10 text-accent-green text-xs rounded font-semibold">参与</span>
+          <span class="text-xs text-gray-400">2018/12—2019/04</span>
+        </div>
+        <h3 class="font-bold text-gray-800 mb-1 text-[15px]">青岛海军节安全保障</h3>
+      </div>
 
-</div></div>
+      <div class="bg-white rounded-xl p-6 border border-gray-100 shadow-sm project-item collapsed" id="project-extra-4">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="px-2 py-0.5 bg-accent-green/10 text-accent-green text-xs rounded font-semibold">参与</span>
+          <span class="text-xs text-gray-400">2017/11—2018/07</span>
+        </div>
+        <h3 class="font-bold text-gray-800 mb-1 text-[15px]">青岛上合峰会安全保障</h3>
+      </div>
 
-</td>
-</tr>
-</table>
+      <div class="bg-white rounded-xl p-6 border border-gray-100 shadow-sm project-item collapsed" id="project-extra-5">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="px-2 py-0.5 bg-accent-green/10 text-accent-green text-xs rounded font-semibold">参与</span>
+          <span class="text-xs text-gray-400">2016/05—2017/04</span>
+        </div>
+        <h3 class="font-bold text-gray-800 mb-1 text-[15px]">日本Docomo NFV虚拟化OpenStack云平台</h3>
+      </div>
+
+      <div class="bg-white rounded-xl p-6 border border-gray-100 shadow-sm project-item collapsed" id="project-extra-6">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="px-2 py-0.5 bg-accent-green/10 text-accent-green text-xs rounded font-semibold">参与</span>
+          <span class="text-xs text-gray-400">2012/05—2016/05</span>
+        </div>
+        <h3 class="font-bold text-gray-800 mb-1 text-[15px]">山东移动LTE网络建设CP1-CP4</h3>
+      </div>
+
+      <div class="bg-white rounded-xl p-6 border border-gray-100 shadow-sm project-item collapsed" id="project-extra-7">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="px-2 py-0.5 bg-accent-green/10 text-accent-green text-xs rounded font-semibold">参与</span>
+          <span class="text-xs text-gray-400">2011/05—2012/05</span>
+        </div>
+        <h3 class="font-bold text-gray-800 mb-1 text-[15px]">甘肃/宁夏/新疆移动省级OSS扩容</h3>
+      </div>
+
+      <div class="bg-white rounded-xl p-6 border border-gray-100 shadow-sm project-item collapsed" id="project-extra-8">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="px-2 py-0.5 bg-accent-green/10 text-accent-green text-xs rounded font-semibold">参与</span>
+          <span class="text-xs text-gray-400">2010/12—2011/05</span>
+        </div>
+        <h3 class="font-bold text-gray-800 mb-1 text-[15px]">山西联通爱立信GPON光网络设备接入</h3>
+      </div>
+
+    </div>
+    <!-- Toggle Button -->
+    <div class="text-center mt-8">
+      <button id="project-toggle" onclick="toggleProjects()" class="inline-flex items-center gap-2 px-4 py-2 text-sm text-accent hover:text-accent/80 transition-colors font-medium">
+        <i data-lucide="chevron-down" class="w-4 h-4" id="project-icon"></i> 展开更多历史项目
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- Professional Certificates -->
+<section id="certs" class="py-20 bg-white">
+  <div class="max-w-6xl mx-auto px-6">
+    <h2 class="font-serif text-3xl font-bold text-primary mb-2 text-center">专业证书</h2>
+    <p class="text-gray-500 text-center mb-12">Professional Certifications</p>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 max-w-5xl mx-auto">
+
+      <div class="bg-surface rounded-xl p-5 border border-gray-100 text-center hover:shadow-md hover:shadow-gray-200/60 transition-all duration-300">
+        <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-3">
+          <i data-lucide="shield" class="w-6 h-6 text-primary"></i>
+        </div>
+        <h4 class="font-bold text-gray-800 text-sm mb-1">高级网络信息安全工程师</h4>
+        <p class="text-xs text-gray-400">2025/07</p>
+      </div>
+
+      <div class="bg-surface rounded-xl p-5 border border-gray-100 text-center hover:shadow-md hover:shadow-gray-200/60 transition-all duration-300">
+        <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-3">
+          <i data-lucide="lock" class="w-6 h-6 text-primary"></i>
+        </div>
+        <h4 class="font-bold text-gray-800 text-sm mb-1">CISP注册信息安全工程师</h4>
+        <p class="text-xs text-gray-400">2025/07</p>
+      </div>
+
+      <div class="bg-surface rounded-xl p-5 border border-gray-100 text-center hover:shadow-md hover:shadow-gray-200/60 transition-all duration-300">
+        <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-3">
+          <i data-lucide="cpu" class="w-6 h-6 text-primary"></i>
+        </div>
+        <h4 class="font-bold text-gray-800 text-sm mb-1">系统架构设计师（高级）</h4>
+        <p class="text-xs text-gray-400">2025/05</p>
+      </div>
+
+      <div class="bg-surface rounded-xl p-5 border border-gray-100 text-center hover:shadow-md hover:shadow-gray-200/60 transition-all duration-300">
+        <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-3">
+          <i data-lucide="bar-chart-3" class="w-6 h-6 text-primary"></i>
+        </div>
+        <h4 class="font-bold text-gray-800 text-sm mb-1">DAMA CDGA数据治理工程师</h4>
+        <p class="text-xs text-gray-400">2024/06</p>
+      </div>
+
+      <div class="bg-surface rounded-xl p-5 border border-gray-100 text-center hover:shadow-md hover:shadow-gray-200/60 transition-all duration-300">
+        <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-3">
+          <i data-lucide="clipboard-list" class="w-6 h-6 text-primary"></i>
+        </div>
+        <h4 class="font-bold text-gray-800 text-sm mb-1">信息系统项目管理师（高级）</h4>
+        <p class="text-xs text-gray-400">2023/11</p>
+      </div>
+
+      <div class="bg-surface rounded-xl p-5 border border-gray-100 text-center hover:shadow-md hover:shadow-gray-200/60 transition-all duration-300">
+        <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-3">
+          <i data-lucide="settings" class="w-6 h-6 text-primary"></i>
+        </div>
+        <h4 class="font-bold text-gray-800 text-sm mb-1">系统集成项目管理工程师（中级）</h4>
+        <p class="text-xs text-gray-400">2023/05</p>
+      </div>
+
+      <div class="bg-surface rounded-xl p-5 border border-gray-100 text-center hover:shadow-md hover:shadow-gray-200/60 transition-all duration-300">
+        <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-3">
+          <i data-lucide="award" class="w-6 h-6 text-primary"></i>
+        </div>
+        <h4 class="font-bold text-gray-800 text-sm mb-1">PMP项目管理专业人员认证</h4>
+        <p class="text-xs text-gray-400">2015/12</p>
+      </div>
+
+      <div class="bg-surface rounded-xl p-5 border border-gray-100 text-center hover:shadow-md hover:shadow-gray-200/60 transition-all duration-300">
+        <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-3">
+          <i data-lucide="network" class="w-6 h-6 text-primary"></i>
+        </div>
+        <h4 class="font-bold text-gray-800 text-sm mb-1">思科CCNA网络工程师</h4>
+        <p class="text-xs text-gray-400">2012/09</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Contact -->
+<section id="contact" class="py-20 bg-surface">
+  <div class="max-w-6xl mx-auto px-6">
+    <h2 class="font-serif text-3xl font-bold text-primary mb-2 text-center">联系方式</h2>
+    <p class="text-gray-500 text-center mb-12">Contact</p>
+    <div class="max-w-2xl mx-auto text-center">
+      <div class="space-y-4 mb-8 text-gray-700">
+        <p class="flex items-center justify-center gap-3"><i data-lucide="mail" class="w-5 h-5 text-primary/60"></i> 76772202@qq.com</p>
+        <p class="flex items-center justify-center gap-3"><i data-lucide="phone" class="w-5 h-5 text-primary/60"></i> 13001722654</p>
+        <p class="flex items-center justify-center gap-3"><i data-lucide="building-2" class="w-5 h-5 text-primary/60"></i> 山东信息职业技术学院，网络安全专业</p>
+      </div>
+      <div class="flex justify-center gap-5 text-2xl text-gray-400">
+        <a href="#" class="hover:text-primary transition-colors" title="GitHub"><i class="fa-brands fa-github"></i></a>
+        <a href="#" class="hover:text-primary transition-colors" title="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="py-8 bg-[#2c2c2e] text-gray-400 text-center text-sm">
+  <p>&copy; 2026 郭启超 | 山东信息职业技术学院 · 网络安全专业</p>
+  <p class="text-gray-500 mt-1">最近更新：2026 年 7 月</p>
+</footer>
+
+<script>
+// Scroll highlight for nav links
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav-link');
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(s => {
+    if (window.scrollY >= s.offsetTop - 100) current = s.getAttribute('id');
+  });
+  navLinks.forEach(l => {
+    l.classList.toggle('text-white', l.getAttribute('href') === '#' + current);
+    l.classList.toggle('font-bold', l.getAttribute('href') === '#' + current);
+  });
+});
+
+// Timeline toggle
+let timelineExpanded = false;
+function toggleTimeline() {
+  timelineExpanded = !timelineExpanded;
+  document.querySelectorAll('.timeline-item').forEach(el => {
+    el.classList.toggle('collapsed', !timelineExpanded);
+  });
+  const btn = document.getElementById('timeline-toggle');
+  btn.innerHTML = timelineExpanded 
+    ? '<i data-lucide="chevron-up" class="w-4 h-4"></i> 收起' 
+    : '<i data-lucide="chevron-down" class="w-4 h-4"></i> 展开更多经历';
+  if (window.lucide) lucide.createIcons();
+}
+
+// Projects toggle
+let projectsExpanded = false;
+function toggleProjects() {
+  projectsExpanded = !projectsExpanded;
+  document.querySelectorAll('.project-item').forEach(el => {
+    el.classList.toggle('collapsed', !projectsExpanded);
+  });
+  const btn = document.getElementById('project-toggle');
+  btn.innerHTML = projectsExpanded 
+    ? '<i data-lucide="chevron-up" class="w-4 h-4"></i> 收起' 
+    : '<i data-lucide="chevron-down" class="w-4 h-4"></i> 展开更多历史项目';
+  if (window.lucide) lucide.createIcons();
+}
+</script>
 </body>
+<script>if (window.lucide) lucide.createIcons();</script>
 </html>
