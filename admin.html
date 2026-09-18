@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/jpeg" href="images/ericsson.jpg">
+  <title>后台管理 · Homepage</title>
+  <link rel="preconnect" href="https://unpkg.com" />
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://cdn.jsdelivr.net/npm/js-sha256@0.11.0/build/sha256.min.js"></script>
+  <script src="admin-config.js"></script>
+  <style>* { scrollbar-width: thin; scrollbar-color: rgba(0,0,0,.2) transparent; }</style>
+</head>
+
+<body class="bg-white text-gray-800 font-body">
+
+<link href="https://fonts.googleapis.cn/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+
+<style type="text/tailwindcss">
+@theme {
+  --color-primary: #2c2c2e;
+  --color-primary-light: #3a3d42;
+  --color-accent: #4a6fa5;
+  --color-surface: #f5f6f8;
+  --font-body: 'Noto Sans SC', sans-serif;
+}
+</style>
+
+<!-- 站点数据（从 data.js 读取） -->
+<script src="data.js"></script>
+
+<!-- Navigation -->
+<nav class="fixed top-0 left-0 right-0 z-50 bg-[#2c2c2e] border-b border-gray-700/30">
+  <div class="max-w-7xl mx-auto px-6 h-14 flex items-center justify-between">
+    <a href="index.html" class="font-serif text-white font-bold tracking-wide">Homepage · 后台管理</a>
+    <div class="flex items-center gap-3 text-sm">
+      <a href="index.html" class="text-gray-300 hover:text-white transition-colors px-3 py-1.5 rounded-lg hover:bg-white/10">← 返回主页</a>
+      <button onclick="openAccount()" class="text-gray-300 hover:text-white transition-colors px-3 py-1.5 rounded-lg hover:bg-white/10">
+        <i data-lucide="key-round" class="w-4 h-4 inline-block -mt-0.5 mr-1"></i>账号设置
+      </button>
+      <button onclick="exportData()" class="bg-accent text-white px-4 py-1.5 rounded-lg font-medium hover:bg-accent/90 transition-colors">
+        <i data-lucide="download" class="w-4 h-4 inline-block -mt-0.5 mr-1"></i>导出 data.js
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- 登录遮罩 -->
+<div id="login-overlay" class="fixed inset-0 z-[200] bg-surface flex items-center justify-center p-4 hidden">
+  <div class="max-w-sm w-full">
+    <div class="text-center mb-6">
+      <p class="font-serif text-2xl font-bold text-primary">郭启超 · 后台管理</p>
+      <p class="text-sm text-gray-400 mt-1">需要管理员账号才能进入</p>
+    </div>
+
+    <!-- 首次设置 -->
+    <div id="setup-form" class="hidden bg-white rounded-xl border border-gray-100 shadow-md p-6 space-y-4">
+      <h3 class="font-bold text-gray-800 text-sm">首次使用：设置管理员账号</h3>
+      <input id="su-user" type="text" placeholder="用户名" class="w-full text-sm rounded-lg border border-gray-200 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-accent/40">
+      <input id="su-pass" type="password" placeholder="密码（至少 6 位）" class="w-full text-sm rounded-lg border border-gray-200 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-accent/40">
+      <input id="su-pass2" type="password" placeholder="确认密码" class="w-full text-sm rounded-lg border border-gray-200 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-accent/40">
+      <p id="su-err" class="text-red-500 text-xs hidden"></p>
+      <button onclick="setupAdmin()" class="w-full bg-primary text-white py-2 rounded-lg text-sm font-medium hover:bg-primary-light transition-colors">生成凭证文件</button>
+      <div id="su-result" class="hidden space-y-3">
+        <button onclick="saveAndLogin()" class="w-full bg-accent text-white py-2 rounded-lg text-sm font-medium hover:bg-accent/90 transition-colors">保存并登录（推荐）</button>
+        <div class="border-t border-gray-100 pt-2">
+          <p class="text-xs text-gray-500 mb-2">也可以导出凭证文件，用于备份或换浏览器使用（需替换项目根目录 <code class="bg-gray-100 px-1 rounded">admin-config.js</code>）：</p>
+          <textarea id="su-out" class="w-full h-24 font-mono text-xs bg-surface rounded-lg p-3 border border-gray-200" readonly></textarea>
+          <div class="flex gap-3 mt-2">
+            <button onclick="copyText('su-out')" class="flex-1 px-3 py-2 rounded-lg text-sm text-gray-600 border border-gray-200 hover:bg-gray-50 transition-colors">复制内容</button>
+            <button onclick="downloadConfig()" class="flex-1 px-3 py-2 rounded-lg text-sm text-gray-600 border border-gray-200 hover:bg-gray-50 transition-colors">下载文件</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 登录 -->
+    <div id="login-form" class="hidden bg-white rounded-xl border border-gray-100 shadow-md p-6 space-y-4">
+      <input id="li-user" type="text" placeholder="用户名" class="w-full text-sm rounded-lg border border-gray-200 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-accent/40">
+      <input id="li-pass" type="password" placeholder="密码" class="w-full text-sm rounded-lg border border-gray-200 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-accent/40">
+      <p id="li-err" class="text-red-500 text-xs hidden">用户名或密码错误</p>
+      <button onclick="doLogin()" class="w-full bg-primary text-white py-2 rounded-lg text-sm font-medium hover:bg-primary-light transition-colors">登 录</button>
+    </div>
+  </div>
+</div>
+
+<!-- 账号设置弹窗 -->
+<div id="acct-modal" class="hidden fixed inset-0 z-[150] bg-black/60 flex items-center justify-center p-4" onclick="event.target===this&&closeAccount()">
+  <div class="bg-white rounded-xl max-w-md w-full shadow-2xl">
+    <div class="flex items-center justify-between px-5 py-4 border-b border-gray-100">
+      <h3 class="font-bold text-gray-800">修改管理员账号</h3>
+      <button onclick="closeAccount()" class="text-gray-400 hover:text-gray-600 text-2xl leading-none">&times;</button>
+    </div>
+    <div class="px-5 py-4 space-y-3">
+      <p class="text-xs text-gray-500">修改后需将生成的 <code class="bg-gray-100 px-1 rounded">admin-config.js</code> 替换到项目根目录。</p>
+      <input id="ac-new-user" type="text" placeholder="新用户名" class="w-full text-sm rounded-lg border border-gray-200 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-accent/40">
+      <input id="ac-new-pass" type="password" placeholder="新密码（至少 6 位）" class="w-full text-sm rounded-lg border border-gray-200 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-accent/40">
+      <input id="ac-new-pass2" type="password" placeholder="确认新密码" class="w-full text-sm rounded-lg border border-gray-200 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-accent/40">
+      <p id="ac-err" class="text-red-500 text-xs hidden"></p>
+      <textarea id="ac-out" class="hidden w-full h-28 font-mono text-xs bg-surface rounded-lg p-3 border border-gray-200" readonly></textarea>
+    </div>
+    <div class="flex gap-3 px-5 py-4 border-t border-gray-100">
+      <button onclick="saveAccount()" class="flex-1 bg-accent text-white py-2 rounded-lg text-sm font-medium hover:bg-accent/90 transition-colors">保存修改</button>
+      <button onclick="genAccount()" class="flex-1 bg-primary text-white py-2 rounded-lg text-sm font-medium hover:bg-primary-light transition-colors">生成凭证</button>
+      <button onclick="copyText('ac-out')" class="flex-1 px-3 py-2 rounded-lg text-sm text-gray-600 border border-gray-200 hover:bg-gray-50 transition-colors">复制内容</button>
+    </div>
+  </div>
+</div>
+
+<!-- Body -->
+<div class="pt-14 flex">
+  <!-- 左侧分类 -->
+  <aside class="w-52 shrink-0 bg-surface h-[calc(100vh-56px)] sticky top-14 overflow-y-auto py-4 border-r border-gray-100">
+    <p class="px-4 pb-2 text-xs text-gray-400 font-bold tracking-wider">内容分类</p>
+    <div id="nav-list" class="space-y-0.5 px-2"></div>
+  </aside>
+
+  <!-- 右侧内容 -->
+  <main class="flex-1 px-6 py-6 max-w-4xl">
+    <div class="flex items-center justify-between mb-4">
+      <div>
+        <h2 id="section-title" class="font-serif text-2xl font-bold text-primary"></h2>
+        <p id="section-desc" class="text-sm text-gray-400 mt-0.5"></p>
+      </div>
+      <button id="add-btn" onclick="startAdd()" class="bg-primary text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-primary-light transition-colors">
+        <i data-lucide="plus" class="w-4 h-4 inline-block -mt-0.5 mr-1"></i>添加
+      </button>
+    </div>
+
+    <div id="items" class="space-y-2"></div>
+
+    <!-- 编辑表单面板 -->
+    <div id="form-panel" class="hidden mt-6 bg-surface rounded-xl border border-gray-100 p-5">
+      <h3 id="form-title" class="font-bold text-gray-800 mb-4"></h3>
+      <div id="form-fields" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+      <div class="flex gap-3 mt-5 pt-4 border-t border-gray-200">
+        <button onclick="saveItem()" class="bg-accent text-white px-5 py-2 rounded-lg text-sm font-medium hover:bg-accent/90 transition-colors">保存</button>
+        <button onclick="cancelForm()" class="px-5 py-2 rounded-lg text-sm text-gray-600 border border-gray-200 hover:bg-gray-50 transition-colors">取消</button>
+      </div>
+    </div>
+
+    <!-- 使用说明 -->
+    <div class="mt-10 bg-accent/5 rounded-xl border border-accent/20 p-5 text-sm text-gray-600 leading-relaxed">
+      <p class="font-bold text-primary mb-2"><i data-lucide="info" class="w-4 h-4 inline-block -mt-0.5 mr-1"></i>使用说明（发布到 GitHub 后）</p>
+      <ol class="list-decimal ml-5 space-y-1">
+        <li>在本页完成内容的新增 / 修改 / 删除；</li>
+        <li>点击右上角「导出 data.js」，复制生成的内容（或直接下载文件）；</li>
+        <li>打开 GitHub 仓库根目录的 <code class="bg-white px-1 rounded">data.js</code>，点击铅笔图标进入编辑，<b>全选替换</b>为导出的内容，Commit 提交；</li>
+        <li>等待 GitHub Pages 自动部署（约 1 分钟），主页即更新。</li>
+      </ol>
+      <p class="mt-3 text-gray-500">提示：相册照片需先上传到仓库 <code class="bg-white px-1 rounded">images/photos/</code> 目录，再在「相册」分类中填写路径。</p>
+    </div>
+  </main>
+</div>
+
+<!-- 导出弹窗 -->
+<div id="export-modal" class="hidden fixed inset-0 z-[100] bg-black/60 flex items-center justify-center p-4" onclick="event.target===this&&closeExport()">
+  <div class="bg-white rounded-xl max-w-3xl w-full max-h-[85vh] flex flex-col shadow-2xl">
+    <div class="flex items-center justify-between px-5 py-4 border-b border-gray-100">
+      <h3 class="font-bold text-gray-800">导出 data.js</h3>
+      <button onclick="closeExport()" class="text-gray-400 hover:text-gray-600 text-2xl leading-none">&times;</button>
+    </div>
+    <div class="px-5 py-4 space-y-3 overflow-y-auto">
+      <p class="text-sm text-gray-500">复制以下完整内容，替换 GitHub 仓库根目录 <code class="bg-gray-100 px-1 rounded">data.js</code> 的全部内容。</p>
+      <textarea id="export-out" class="w-full h-64 font-mono text-xs bg-surface rounded-lg p-3 border border-gray-200" readonly></textarea>
+    </div>
+    <div class="flex gap-3 px-5 py-4 border-t border-gray-100">
+      <button onclick="copyExport()" class="bg-primary text-white px-5 py-2 rounded-lg text-sm font-medium hover:bg-primary-light transition-colors">复制内容</button>
+      <button onclick="downloadExport()" class="px-5 py-2 rounded-lg text-sm text-gray-600 border border-gray-200 hover:bg-gray-50 transition-colors">下载 data.js 文件</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ==================== 登录认证 ====================
+// 凭证来源：浏览器本地 localStorage（设置界面"保存并登录"写入）优先，其次 admin-config.js
+function getCred() {
+  try {
+    const c = JSON.parse(localStorage.getItem('admin_cred') || 'null');
+    if (c && c.user && c.passHash) return c;
+  } catch (e) {}
+  return window.ADMIN_CONFIG || null;
+}
+let ADMIN = getCred();
+const hasAdmin = function () { return !!(ADMIN && ADMIN.user && ADMIN.passHash); };
+
+function initAuth() {
+  const overlay = document.getElementById('login-overlay');
+  if (!hasAdmin()) {
+    overlay.classList.remove('hidden');
+    document.getElementById('setup-form').classList.remove('hidden');
+    return;
+  }
+  if (!sessionStorage.getItem('admin_ok')) {
+    overlay.classList.remove('hidden');
+    document.getElementById('login-form').classList.remove('hidden');
+  } else {
+    overlay.classList.add('hidden');
+  }
+}
+
+function doLogin() {
+  const u = document.getElementById('li-user').value.trim();
+  const p = document.getElementById('li-pass').value;
+  const err = document.getElementById('li-err');
+  if (u === ADMIN.user && window.sha256(p) === ADMIN.passHash) {
+    sessionStorage.setItem('admin_ok', '1');
+    err.classList.add('hidden');
+    location.reload();
+  } else {
+    err.classList.remove('hidden');
+  }
+}
+
+function configText(user, passHash) {
+  return '// 管理员凭证（由后台管理页生成；仅保存 SHA-256 哈希，不保存明文密码）\nwindow.ADMIN_CONFIG = {\n  user: ' + JSON.stringify(user) + ',\n  passHash: "' + passHash + '"\n};\n';
+}
+
+function setupAdmin() {
+  const user = document.getElementById('su-user').value.trim();
+  const p1 = document.getElementById('su-pass').value;
+  const p2 = document.getElementById('su-pass2').value;
+  const err = document.getElementById('su-err');
+  if (!user) { err.textContent = '用户名不能为空'; err.classList.remove('hidden'); return; }
+  if (p1.length < 6) { err.textContent = '密码至少 6 位'; err.classList.remove('hidden'); return; }
+  if (p1 !== p2) { err.textContent = '两次输入的密码不一致'; err.classList.remove('hidden'); return; }
+  err.classList.add('hidden');
+  document.getElementById('su-out').value = configText(user, window.sha256(p1));
+  document.getElementById('su-result').classList.remove('hidden');
+}
+
+// 设置账号后直接保存到本浏览器并登录（无需替换任何文件）
+function saveAndLogin() {
+  const user = document.getElementById('su-user').value.trim();
+  const p1 = document.getElementById('su-pass').value;
+  const p2 = document.getElementById('su-pass2').value;
+  const err = document.getElementById('su-err');
+  if (!user) { err.textContent = '用户名不能为空'; err.classList.remove('hidden'); return; }
+  if (p1.length < 6) { err.textContent = '密码至少 6 位'; err.classList.remove('hidden'); return; }
+  if (p1 !== p2) { err.textContent = '两次输入的密码不一致'; err.classList.remove('hidden'); return; }
+  err.classList.add('hidden');
+  localStorage.setItem('admin_cred', JSON.stringify({ user: user, passHash: window.sha256(p1) }));
+  sessionStorage.setItem('admin_ok', '1');
+  location.reload();
+}
+
+function openAccount() {
+  document.getElementById('ac-out').classList.add('hidden');
+  document.getElementById('ac-out').value = '';
+  document.getElementById('ac-err').classList.add('hidden');
+  document.getElementById('ac-new-user').value = ADMIN ? ADMIN.user : '';
+  document.getElementById('ac-new-pass').value = '';
+  document.getElementById('ac-new-pass2').value = '';
+  document.getElementById('acct-modal').classList.remove('hidden');
+}
+
+function closeAccount() {
+  document.getElementById('acct-modal').classList.add('hidden');
+}
+
+function genAccount() {
+  const user = document.getElementById('ac-new-user').value.trim();
+  const p1 = document.getElementById('ac-new-pass').value;
+  const p2 = document.getElementById('ac-new-pass2').value;
+  const err = document.getElementById('ac-err');
+  if (!user) { err.textContent = '用户名不能为空'; err.classList.remove('hidden'); return; }
+  if (p1.length < 6) { err.textContent = '密码至少 6 位'; err.classList.remove('hidden'); return; }
+  if (p1 !== p2) { err.textContent = '两次输入的密码不一致'; err.classList.remove('hidden'); return; }
+  err.classList.add('hidden');
+  const out = document.getElementById('ac-out');
+  out.classList.remove('hidden');
+  out.value = configText(user, window.sha256(p1));
+}
+
+// 修改账号后直接保存到本浏览器（无需替换任何文件）
+function saveAccount() {
+  const user = document.getElementById('ac-new-user').value.trim();
+  const p1 = document.getElementById('ac-new-pass').value;
+  const p2 = document.getElementById('ac-new-pass2').value;
+  const err = document.getElementById('ac-err');
+  if (!user) { err.textContent = '用户名不能为空'; err.classList.remove('hidden'); return; }
+  if (p1.length < 6) { err.textContent = '密码至少 6 位'; err.classList.remove('hidden'); return; }
+  if (p1 !== p2) { err.textContent = '两次输入的密码不一致'; err.classList.remove('hidden'); return; }
+  err.classList.add('hidden');
+  localStorage.setItem('admin_cred', JSON.stringify({ user: user, passHash: window.sha256(p1) }));
+  sessionStorage.setItem('admin_ok', '1');
+  alert('已保存新凭证，下次使用新账号登录');
+  closeAccount();
+}
+
+function copyText(id) {
+  const ta = document.getElementById(id);
+  if (!ta.value) { alert('请先生成内容'); return; }
+  ta.select();
+  ta.setSelectionRange(0, ta.value.length);
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(ta.value).then(function () { alert('已复制！请替换项目根目录 admin-config.js 后刷新。'); });
+  } else {
+    document.execCommand('copy');
+    alert('已复制！请替换项目根目录 admin-config.js 后刷新。');
+  }
+}
+
+function downloadConfig() {
+  const ta = document.getElementById('su-out');
+  if (!ta.value) { alert('请先生成内容'); return; }
+  const blob = new Blob([ta.value], { type: 'text/javascript;charset=utf-8' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'admin-config.js';
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+
+// ==================== 数据 ====================
+const D = window.SITE_DATA || {};
+const data = JSON.parse(JSON.stringify(D));   // 内存副本，编辑不影响原文件
+const ORDER = [
+  { key: 'hero',       label: '基本信息', desc: '姓名、职称、标签与个人简介' },
+  { key: 'expertise',  label: '技术专长', desc: '主页「技术专长」卡片' },
+  { key: 'experience', label: '工作经历', desc: '主页时间线（前 4 条展开）' },
+  { key: 'papers',     label: '发表论文', desc: '主页「发表论文」列表' },
+  { key: 'patents',    label: '发明专利', desc: '主页「专利与软著」表格' },
+  { key: 'copyrights', label: '软件著作权', desc: '主页「专利与软著」表格' },
+  { key: 'projects',   label: '代表项目', desc: '主页「代表项目」（前 6 条展开）' },
+  { key: 'ai',         label: 'AI 专区', desc: '主页「AI 专区」卡片' },
+  { key: 'thinking',   label: '思考框架', desc: '思考框架页「思考沉淀」卡片' },
+  { key: 'certs',      label: '专业证书', desc: '主页「专业证书」卡片' },
+  { key: 'photos',     label: '活动', desc: '活动页照片（src 填 images/photos/ 下路径）' }
+];
+
+const ICONS = ['bot','brain','radio-tower','cloud','shield-check','database','terminal','clipboard-check','palette','plane','library','layers','network','target','refresh-cw','messages-square','shield','lock','cpu','bar-chart-3','clipboard-list','settings','award','file-badge','code-2','mail','phone','building-2','image','briefcase','graduation-cap'];
+
+const SCHEMAS = {
+  expertise:  { fields: [ {k:'icon',l:'图标',t:'select',o:ICONS}, {k:'title',l:'标题',t:'text'}, {k:'desc',l:'描述',t:'textarea'} ] },
+  experience: { fields: [ {k:'period',l:'时间',t:'text'}, {k:'role',l:'职位',t:'text'}, {k:'org',l:'单位',t:'text'}, {k:'desc',l:'描述',t:'textarea'}, {k:'current',l:'当前职位（高亮）',t:'checkbox'} ] },
+  papers:     { fields: [ {k:'title',l:'标题',t:'text'}, {k:'authors',l:'作者',t:'text'}, {k:'venue',l:'期刊/来源',t:'text'} ] },
+  patents:    { fields: [ {k:'title',l:'专利名称',t:'text'}, {k:'number',l:'专利号',t:'text'}, {k:'status',l:'状态',t:'select',o:['已授权','已公布','审查中']} ] },
+  copyrights: { fields: [ {k:'name',l:'软件名称',t:'text'}, {k:'number',l:'登记号',t:'text'}, {k:'year',l:'年份',t:'text'} ] },
+  projects:   { fields: [ {k:'role',l:'角色',t:'text'}, {k:'date',l:'时间',t:'text'}, {k:'title',l:'项目名称',t:'textarea'} ] },
+  ai:         { fields: [ {k:'icon',l:'图标',t:'select',o:ICONS}, {k:'title',l:'名称（中文）',t:'text'}, {k:'en',l:'英文名',t:'text'}, {k:'desc',l:'简单介绍',t:'textarea'} ] },
+  thinking:   { fields: [ {k:'icon',l:'图标',t:'select',o:ICONS}, {k:'title',l:'标题',t:'text'}, {k:'desc',l:'描述',t:'textarea'} ] },
+  certs:      { fields: [ {k:'icon',l:'图标',t:'select',o:ICONS}, {k:'title',l:'证书名称',t:'text'}, {k:'date',l:'获取时间',t:'text'} ] },
+  photos:     { fields: [ {k:'category',l:'分类',t:'text'}, {k:'title',l:'标题',t:'text'}, {k:'date',l:'时间',t:'text'}, {k:'src',l:'图片路径',t:'text'}, {k:'desc',l:'描述',t:'textarea'} ] }
+};
+
+let current = 'hero';
+let editIndex = -1;
+
+// ==================== 导航 ====================
+function renderNav() {
+  const el = document.getElementById('nav-list');
+  el.innerHTML = ORDER.map(function (o) {
+    const active = o.key === current;
+    return '<button onclick="switchSection(\'' + o.key + '\')" class="w-full text-left px-3 py-2 rounded-lg text-sm transition-colors ' +
+      (active ? 'bg-primary text-white font-medium' : 'text-gray-600 hover:bg-gray-100') + '">' + o.label + '</button>';
+  }).join('');
+  if (window.lucide) lucide.createIcons();
+}
+
+function switchSection(key) {
+  current = key;
+  editIndex = -1;
+  document.getElementById('form-panel').classList.add('hidden');
+  renderNav();
+  renderSection();
+}
+
+// ==================== 列表 ====================
+function previewOf(schema, item) {
+  const first = schema.fields.find(function (f) { return f.t !== 'checkbox' && f.k !== 'icon'; });
+  return first ? (item[first.k] || '') : '';
+}
+
+function renderSection() {
+  const meta = ORDER.find(function (o) { return o.key === current; });
+  document.getElementById('section-title').textContent = meta.label;
+  document.getElementById('section-desc').textContent = meta.desc;
+  document.getElementById('add-btn').style.display = '';
+
+  if (current === 'hero') { renderHeroForm(); return; }
+
+  const schema = SCHEMAS[current];
+  const list = data[current] || [];
+  const el = document.getElementById('items');
+  if (!list.length) {
+    el.innerHTML = '<p class="text-gray-400 text-sm py-6 text-center border border-dashed border-gray-200 rounded-xl">暂无内容，点击右上角「添加」</p>';
+    return;
+  }
+  el.innerHTML = list.map(function (item, i) {
+    return '<div class="flex items-center justify-between bg-surface rounded-xl border border-gray-100 px-4 py-3">'
+      + '<div class="flex-1 min-w-0 pr-4"><p class="font-medium text-gray-800 truncate">' + esc(previewOf(schema, item)) + '</p></div>'
+      + '<div class="flex gap-2 shrink-0">'
+      + '<button onclick="startEdit(' + i + ')" class="px-3 py-1 text-xs rounded-lg border border-gray-200 text-gray-600 hover:bg-white transition-colors">编辑</button>'
+      + '<button onclick="deleteItem(' + i + ')" class="px-3 py-1 text-xs rounded-lg border border-red-100 text-red-500 hover:bg-red-50 transition-colors">删除</button>'
+      + '</div></div>';
+  }).join('');
+}
+
+function esc(s) {
+  return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+    return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+  });
+}
+
+// ==================== 表单 ====================
+function fieldHtml(f) {
+  if (f.t === 'textarea') {
+    return '<div><label class="block text-xs font-medium text-gray-500 mb-1">' + f.l + '</label><textarea id="f-' + f.k + '" rows="3" class="w-full text-sm rounded-lg border border-gray-200 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-accent/40"></textarea></div>';
+  }
+  if (f.t === 'select') {
+    return '<div><label class="block text-xs font-medium text-gray-500 mb-1">' + f.l + '</label><select id="f-' + f.k + '" class="w-full text-sm rounded-lg border border-gray-200 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-accent/40">'
+      + f.o.map(function (op) { return '<option value="' + esc(op) + '">' + esc(op) + '</option>'; }).join('') + '</select></div>';
+  }
+  if (f.t === 'checkbox') {
+    return '<div class="flex items-center gap-2 pt-5"><input id="f-' + f.k + '" type="checkbox" class="w-4 h-4 accent-accent"><label class="text-sm text-gray-600">' + f.l + '</label></div>';
+  }
+  return '<div><label class="block text-xs font-medium text-gray-500 mb-1">' + f.l + '</label><input id="f-' + f.k + '" type="text" class="w-full text-sm rounded-lg border border-gray-200 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-accent/40"></div>';
+}
+
+function startAdd() {
+  if (current === 'hero') return;
+  editIndex = -1;
+  const schema = SCHEMAS[current];
+  document.getElementById('form-title').textContent = '添加新条目';
+  document.getElementById('form-fields').innerHTML = schema.fields.map(fieldHtml).join('');
+  document.getElementById('form-panel').classList.remove('hidden');
+  document.getElementById('form-panel').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function startEdit(i) {
+  editIndex = i;
+  const schema = SCHEMAS[current];
+  const item = data[current][i];
+  document.getElementById('form-title').textContent = '编辑条目 #' + (i + 1);
+  document.getElementById('form-fields').innerHTML = schema.fields.map(function (f) {
+    const html = fieldHtml(f);
+    const v = item[f.k];
+    if (f.t === 'checkbox') {
+      return html.replace('<input id="f-' + f.k + '" type="checkbox"', v ? '<input id="f-' + f.k + '" type="checkbox" checked' : '<input id="f-' + f.k + '" type="checkbox"');
+    }
+    if (f.t === 'select') {
+      return html.replace('<option value="' + esc(v) + '">', '<option value="' + esc(v) + '" selected>');
+    }
+    return html.replace('<input id="f-' + f.k + '" type="text"', '<input id="f-' + f.k + '" type="text" value="' + esc(v == null ? '' : v) + '"');
+  }).join('');
+  document.getElementById('form-panel').classList.remove('hidden');
+  document.getElementById('form-panel').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function saveItem() {
+  if (current === 'hero') {
+    saveHero();
+    document.getElementById('form-panel').classList.add('hidden');
+    renderSection();
+    return;
+  }
+  const schema = SCHEMAS[current];
+  const item = {};
+  schema.fields.forEach(function (f) {
+    const el = document.getElementById('f-' + f.k);
+    if (!el) return;
+    if (f.t === 'checkbox') { item[f.k] = el.checked; return; }
+    item[f.k] = el.value.trim();
+  });
+  if (!data[current]) data[current] = [];
+  if (editIndex >= 0) data[current][editIndex] = item; else data[current].push(item);
+  document.getElementById('form-panel').classList.add('hidden');
+  renderSection();
+}
+
+function deleteItem(i) {
+  if (!confirm('确认删除该条目？')) return;
+  data[current].splice(i, 1);
+  renderSection();
+}
+
+function cancelForm() {
+  document.getElementById('form-panel').classList.add('hidden');
+}
+
+// ==================== hero 表单 ====================
+function renderHeroForm() {
+  const h = data.hero || {};
+  document.getElementById('items').innerHTML = '';
+  document.getElementById('form-panel').classList.remove('hidden');
+  document.getElementById('form-title').textContent = '基本信息';
+  document.getElementById('form-fields').innerHTML =
+    '<div><label class="block text-xs font-medium text-gray-500 mb-1">姓名</label><input id="h-name" type="text" value="' + esc(h.name || '') + '" class="w-full text-sm rounded-lg border border-gray-200 px-3 py-2"></div>'
+    + '<div><label class="block text-xs font-medium text-gray-500 mb-1">拼音/英文名</label><input id="h-pinyin" type="text" value="' + esc(h.pinyin || '') + '" class="w-full text-sm rounded-lg border border-gray-200 px-3 py-2"></div>'
+    + '<div class="md:col-span-2"><label class="block text-xs font-medium text-gray-500 mb-1">职称 / 单位</label><input id="h-title" type="text" value="' + esc(h.title || '') + '" class="w-full text-sm rounded-lg border border-gray-200 px-3 py-2"></div>'
+    + '<div class="md:col-span-2"><label class="block text-xs font-medium text-gray-500 mb-1">标签（用英文逗号分隔）</label><input id="h-tags" type="text" value="' + esc((h.tags || []).join(', ')) + '" class="w-full text-sm rounded-lg border border-gray-200 px-3 py-2"></div>'
+    + '<div class="md:col-span-2"><label class="block text-xs font-medium text-gray-500 mb-1">个人简介</label><textarea id="h-bio" rows="5" class="w-full text-sm rounded-lg border border-gray-200 px-3 py-2">' + esc(h.bio || '') + '</textarea></div>';
+  document.getElementById('add-btn').style.display = 'none';
+}
+
+function saveHero() {
+  data.hero = data.hero || {};
+  data.hero.name = document.getElementById('h-name').value.trim();
+  data.hero.pinyin = document.getElementById('h-pinyin').value.trim();
+  data.hero.title = document.getElementById('h-title').value.trim();
+  data.hero.tags = document.getElementById('h-tags').value.split(/[,，]/).map(function (s) { return s.trim(); }).filter(Boolean);
+  data.hero.bio = document.getElementById('h-bio').value.trim();
+}
+
+// ==================== 导出 ====================
+function buildDataJs() {
+  saveHero();
+  const clean = JSON.parse(JSON.stringify(data));
+  // 去掉空数组字段，保持整洁
+  ORDER.forEach(function (o) {
+    if (Array.isArray(clean[o.key]) && clean[o.key].length === 0) delete clean[o.key];
+  });
+  return '/**\n * 站点数据文件（由后台管理页导出，勿手改格式）\n * 内容源：admin.html\n */\nwindow.SITE_DATA = ' + JSON.stringify(clean, null, 2) + ';\n';
+}
+
+function exportData() {
+  document.getElementById('export-out').value = buildDataJs();
+  document.getElementById('export-modal').classList.remove('hidden');
+}
+
+function closeExport() {
+  document.getElementById('export-modal').classList.add('hidden');
+}
+
+function copyExport() {
+  const ta = document.getElementById('export-out');
+  ta.select();
+  ta.setSelectionRange(0, ta.value.length);
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(ta.value).then(function () { alert('已复制！请到 GitHub 替换 data.js 内容。'); });
+  } else {
+    document.execCommand('copy');
+    alert('已复制！请到 GitHub 替换 data.js 内容。');
+  }
+}
+
+function downloadExport() {
+  const blob = new Blob([buildDataJs()], { type: 'text/javascript;charset=utf-8' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'data.js';
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+
+// ==================== 初始化 ====================
+initAuth();
+renderNav();
+renderSection();
+if (window.lucide) lucide.createIcons();
+</script>
+</body>
+</html>

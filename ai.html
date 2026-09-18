@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/jpeg" href="images/ericsson.jpg">
+  <title>AI 专区 · Homepage</title>
+  <link rel="preconnect" href="https://unpkg.com" />
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <script src="https://unpkg.com/@fortawesome/fontawesome-free@6.7.2/js/all.min.js"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    * { scrollbar-width: none; scrollbar-color: rgba(0,0,0,.2) transparent; }
+  </style>
+</head>
+
+<body class="bg-white text-gray-800 font-body">
+
+<link href="https://fonts.googleapis.cn/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&family=Noto+Serif+SC:wght@400;600;700&family=Playfair+Display:wght@400;600;700;900&display=swap" rel="stylesheet">
+
+<style type="text/tailwindcss">
+@theme {
+  --color-primary: #2c2c2e;
+  --color-primary-light: #3a3d42;
+  --color-accent: #4a6fa5;
+  --color-accent-green: #5b7fa6;
+  --color-surface: #f5f6f8;
+  --color-surface-alt: #f0f2f5;
+  --font-body: 'Noto Sans SC', sans-serif;
+  --font-serif: 'Noto Serif SC', serif;
+  --font-display: 'Playfair Display', serif;
+}
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@utility animate-fade-in-up {
+  animation: fadeInUp 0.6s ease-out both;
+}
+</style>
+
+<script src="data.js"></script>
+
+<!-- Navigation -->
+<nav id="navbar" class="fixed top-0 left-0 right-0 z-50 bg-[#2c2c2e] backdrop-blur-sm border-b border-gray-700/30 transition-shadow duration-300">
+  <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+    <a href="index.html" class="font-serif text-white text-lg font-bold tracking-wide">Homepage</a>
+    <div class="hidden md:flex items-center gap-6 text-sm font-medium text-gray-300">
+      <a href="index.html#research" class="hover:text-white transition-colors">技术专长</a>
+      <a href="index.html#experience" class="hover:text-white transition-colors">工作经历</a>
+      <a href="index.html#publications" class="hover:text-white transition-colors">论文</a>
+      <a href="index.html#patents" class="hover:text-white transition-colors">专利/软著</a>
+      <a href="index.html#projects" class="hover:text-white transition-colors">项目</a>
+      <span class="w-px h-4 bg-gray-600/60"></span>
+      <a href="thinking.html" class="px-3 py-1 rounded-full bg-accent/20 text-white hover:bg-accent/40 transition-colors">思考框架</a>
+      <a href="ai.html" class="px-3 py-1 rounded-full bg-accent/40 text-white">AI 专区</a>
+      <a href="gallery.html" class="px-3 py-1 rounded-full bg-accent/20 text-white hover:bg-accent/40 transition-colors">活动</a>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="pt-28 pb-14 bg-[#f5f6f8]">
+  <div class="max-w-6xl mx-auto px-6 text-center">
+    <h1 class="font-serif text-4xl md:text-5xl font-bold text-primary mb-2">AI 专区</h1>
+    <p class="font-display text-xl text-gray-500 italic mb-4">AI Zone · Skills / Agents / Programming</p>
+    <p class="text-gray-600 max-w-3xl mx-auto">自研 AI Skills 与智能体、AI 编程实践，以及 WorkBuddy 工具使用沉淀。</p>
+  </div>
+</section>
+
+<!-- AI 作品：Agent & Skill -->
+<section id="works" class="pt-10 pb-14 bg-white">
+  <div class="max-w-5xl mx-auto px-6">
+    <div id="ai-grid" class="space-y-3"></div>
+  </div>
+</section>
+
+<!-- WorkBuddy 使用沉淀 -->
+<section id="workbuddy" class="py-14 bg-surface">
+  <div class="max-w-5xl mx-auto px-6">
+    <h2 class="font-serif text-3xl font-bold text-primary mb-2 text-center">WorkBuddy 使用沉淀</h2>
+    <p class="text-gray-500 text-center mb-8">基于豆包工作台的实际使用历程（截至 2026-09）</p>
+
+    <div class="bg-white rounded-xl border border-gray-100 shadow-sm p-6 mb-4">
+      <h3 class="font-bold text-gray-800 mb-2 text-sm">第三方 Skill（16 个包）</h3>
+      <p class="text-sm text-gray-500 leading-relaxed">教学/办公：tencent-pptx、tencent-docx、sheetagent 系列、guizang-ppt-skill、minimax-xlsx、tencent-survey、testcase-generator。自动化/浏览器：agent-browser-core、browser-use、playwright-cli。开发：github、github-ai-trends、skill-creator、grilling、toby-brainstorming、find-skills。生活/内容：mcdonald-assistant、美团惠省、小红书发布（xhs-publish-note）。</p>
+    </div>
+
+    <div class="bg-white rounded-xl border border-gray-100 shadow-sm p-6 mb-4">
+      <h3 class="font-bold text-gray-800 mb-2 text-sm">做过的工具与项目</h3>
+      <p class="text-sm text-gray-500 leading-relaxed">信息安全实训室建设方案深度评估系列（众测运营中心 / 信创软硬件适配生产基地 / 工业互联网与车联网众测运营中心）· 办公应用课程 PPT 系列 · 《网络安全技术基础》古典密码教案 · 网络层威胁三件套 · 凯撒密码教学工具 · 漏洞演示平台 · 爬虫靶场 · 浏览器插件 · 随机点名器与导航首页 · 期末出卷。</p>
+    </div>
+
+    <div class="bg-white rounded-xl border border-gray-100 shadow-sm p-6">
+      <h3 class="font-bold text-gray-800 mb-2 text-sm">使用偏好</h3>
+      <p class="text-sm text-gray-500 leading-relaxed">迭代式开发与方案评估型提问；实训手册用 Markdown、教案分段输出、PPT 科技蓝风格、UI 深色科技风；内容简洁、知识体系罗列，习惯修改现有代码；以 @skill 命令触发特定输出。</p>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="py-8 bg-[#2c2c2e] text-gray-400 text-center text-sm">
+  <p>&copy; 2026 Homepage | SDCIT · Ericsson</p>
+  <p class="mt-2"><a href="admin.html" class="text-gray-600 hover:text-gray-300 text-xs transition-colors">后台管理</a></p>
+</footer>
+
+<script>
+const D = window.SITE_DATA || {};
+function esc(s) {
+  return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+    return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+  });
+}
+// AI 作品渲染（中文（英文）命名 + 简单介绍）
+const el = document.getElementById('ai-grid');
+el.innerHTML = (D.ai || []).map(function (x) {
+  const name = x.en ? esc(x.title) + '（' + esc(x.en) + '）' : esc(x.title);
+  return '<div class="flex items-start gap-4 p-5 bg-surface rounded-xl border border-gray-100 hover:border-accent/30 transition-colors">'
+    + '<div class="w-10 h-10 shrink-0 bg-primary/10 rounded-lg flex items-center justify-center">'
+    + '<i data-lucide="' + esc(x.icon) + '" class="w-5 h-5 text-primary"></i></div>'
+    + '<div><h3 class="font-bold text-gray-800 mb-1">' + name + '</h3>'
+    + '<p class="text-sm text-gray-500 leading-relaxed">' + esc(x.desc) + '</p></div></div>';
+}).join('');
+if (window.lucide) lucide.createIcons();
+</script>
+</body>
+</html>

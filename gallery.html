@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/jpeg" href="images/ericsson.jpg">
+  <title>活动 · Homepage</title>
+  <link rel="preconnect" href="https://unpkg.com" />
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <script src="https://unpkg.com/@fortawesome/fontawesome-free@6.7.2/js/all.min.js"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    * {
+      scrollbar-width: none;
+      scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
+    }
+  </style>
+</head>
+
+<body class="bg-white text-gray-800 font-body">
+
+<link href="https://fonts.googleapis.cn/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&family=Noto+Serif+SC:wght@400;600;700&family=Playfair+Display:wght@400;600;700;900&display=swap" rel="stylesheet">
+
+<style type="text/tailwindcss">
+@theme {
+  --color-primary: #2c2c2e;
+  --color-primary-light: #3a3d42;
+  --color-accent: #4a6fa5;
+  --color-accent-green: #5b7fa6;
+  --color-surface: #f5f6f8;
+  --color-surface-alt: #f0f2f5;
+  --font-body: 'Noto Sans SC', sans-serif;
+  --font-serif: 'Noto Serif SC', serif;
+  --font-display: 'Playfair Display', serif;
+}
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@utility animate-fade-in-up {
+  animation: fadeInUp 0.6s ease-out both;
+}
+</style>
+
+<!-- 站点数据（相册内容在 data.js 的 photos 中维护） -->
+<script src="data.js"></script>
+
+<!-- Navigation -->
+<nav id="navbar" class="fixed top-0 left-0 right-0 z-50 bg-[#2c2c2e] backdrop-blur-sm border-b border-gray-700/30 transition-shadow duration-300">
+  <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+    <a href="index.html" class="font-serif text-white text-lg font-bold tracking-wide">Homepage</a>
+    <div class="hidden md:flex items-center gap-6 text-sm font-medium text-gray-300">
+      <a href="index.html#research" class="hover:text-white transition-colors">技术专长</a>
+      <a href="index.html#experience" class="hover:text-white transition-colors">工作经历</a>
+      <a href="index.html#publications" class="hover:text-white transition-colors">论文</a>
+      <a href="index.html#patents" class="hover:text-white transition-colors">专利/软著</a>
+      <a href="index.html#projects" class="hover:text-white transition-colors">项目</a>
+      <span class="w-px h-4 bg-gray-600/60"></span>
+      <a href="thinking.html" class="px-3 py-1 rounded-full bg-accent/20 text-white hover:bg-accent/40 transition-colors">思考框架</a>
+      <a href="ai.html" class="px-3 py-1 rounded-full bg-accent/20 text-white hover:bg-accent/40 transition-colors">AI 专区</a>
+      <a href="gallery.html" class="px-3 py-1 rounded-full bg-accent/40 text-white">活动</a>
+    </div>
+  </div>
+</nav>
+
+<!-- Header -->
+<section class="pt-28 pb-12 bg-[#f5f6f8]">
+  <div class="max-w-6xl mx-auto px-6 text-center">
+    <h1 class="font-serif text-4xl md:text-5xl font-bold text-primary mb-2">活动</h1>
+    <p class="font-display text-xl text-gray-500 italic mb-4">Activities</p>
+    <p class="text-gray-600">会议、培训与活动影像记录 · 照片在 data.js 的 photos 中维护</p>
+  </div>
+</section>
+
+<!-- Gallery -->
+<section class="py-14 bg-white">
+  <div class="max-w-6xl mx-auto px-6">
+
+    <!-- 分类筛选 -->
+    <div id="filter-bar" class="flex flex-wrap justify-center gap-2 mb-10"></div>
+
+    <!-- 图片网格 -->
+    <div id="photo-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+
+    <p id="empty-tip" class="hidden text-center text-gray-400 py-16">
+      <i data-lucide="image-off" class="w-10 h-10 mx-auto mb-3 text-gray-300"></i><br />
+      暂无照片。请将图片放入 images/photos/ 目录，并在 data.js 的 photos 中填写对应条目。
+    </p>
+
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="py-8 bg-[#2c2c2e] text-gray-400 text-center text-sm">
+  <p>&copy; 2026 Homepage | SDCIT · Ericsson</p>
+  <p class="mt-2"><a href="admin.html" class="text-gray-600 hover:text-gray-300 text-xs transition-colors">后台管理</a></p>
+</footer>
+
+<!-- 灯箱 -->
+<div id="lightbox" class="hidden fixed inset-0 z-[100] bg-black/90 flex items-center justify-center p-4 md:p-10" onclick="lbClose()">
+  <button class="absolute top-5 right-5 text-white/70 hover:text-white text-3xl leading-none w-10 h-10" onclick="event.stopPropagation(); lbClose()" aria-label="关闭">&times;</button>
+  <button id="lb-prev" class="absolute left-3 md:left-8 top-1/2 -translate-y-1/2 text-white/70 hover:text-white text-4xl px-3" onclick="event.stopPropagation(); lbNav(-1)" aria-label="上一张">&lsaquo;</button>
+  <button id="lb-next" class="absolute right-3 md:right-8 top-1/2 -translate-y-1/2 text-white/70 hover:text-white text-4xl px-3" onclick="event.stopPropagation(); lbNav(1)" aria-label="下一张">&rsaquo;</button>
+  <div class="max-w-5xl max-h-full flex flex-col items-center" onclick="event.stopPropagation()">
+    <img id="lb-img" src="" alt="" class="max-w-full max-h-[75vh] object-contain rounded-lg shadow-2xl">
+    <div class="text-center mt-4 text-white">
+      <p id="lb-title" class="font-bold"></p>
+      <p id="lb-desc" class="text-sm text-white/70 mt-1"></p>
+    </div>
+  </div>
+</div>
+
+<script>
+// ============ 相册渲染（数据源：data.js → window.SITE_DATA.photos） ============
+const D = window.SITE_DATA || {};
+const photos = (D.photos || []).filter(function (p) {
+  return p && p.src && p.src.indexOf('images/photos/') === 0 && p.src.length > 'images/photos/'.length;
+});
+
+function esc(s) {
+  return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+    return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+  });
+}
+
+let currentFilter = '全部';
+let currentList = photos;
+
+// 分类按钮
+function renderFilters() {
+  const cats = ['全部'];
+  photos.forEach(function (p) {
+    if (p.category && cats.indexOf(p.category) < 0) cats.push(p.category);
+  });
+  const bar = document.getElementById('filter-bar');
+  bar.innerHTML = cats.map(function (c) {
+    return '<button data-cat="' + esc(c) + '" onclick="setFilter(\'' + esc(c) + '\')" class="px-4 py-1.5 rounded-full text-sm font-medium border transition-colors ' +
+      (c === currentFilter ? 'bg-primary text-white border-primary' : 'bg-white text-gray-600 border-gray-200 hover:border-accent hover:text-accent') + '">' + esc(c) + '</button>';
+  }).join('');
+}
+
+function setFilter(c) {
+  currentFilter = c;
+  currentList = c === '全部' ? photos : photos.filter(function (p) { return p.category === c; });
+  renderFilters();
+  renderGrid();
+}
+
+function renderGrid() {
+  const grid = document.getElementById('photo-grid');
+  const tip = document.getElementById('empty-tip');
+  if (!currentList.length) {
+    grid.innerHTML = '';
+    tip.classList.remove('hidden');
+    if (window.lucide) lucide.createIcons();
+    return;
+  }
+  tip.classList.add('hidden');
+  grid.innerHTML = currentList.map(function (p, i) {
+    return '<figure class="group relative rounded-xl overflow-hidden border border-gray-100 bg-surface shadow-sm hover:shadow-lg hover:shadow-gray-200/60 transition-all duration-300 cursor-pointer" onclick="lbOpen(' + i + ')">'
+      + '<img src="' + esc(p.src) + '" alt="' + esc(p.title) + '" loading="lazy" class="w-full h-56 object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.onerror=null;this.src=\'data:image/svg+xml;utf8,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300"><rect width="400" height="300" fill="#f0f2f5"/><text x="200" y="155" font-size="16" fill="#9ca3af" text-anchor="middle">图片缺失</text></svg>') + '">'
+      + '<figcaption class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent text-white p-3 pt-8">'
+      + '<p class="text-sm font-bold">' + esc(p.title) + '</p>'
+      + '<p class="text-xs text-white/70">' + esc(p.category) + (p.date ? ' · ' + esc(p.date) : '') + '</p>'
+      + '</figcaption></figure>';
+  }).join('');
+  if (window.lucide) lucide.createIcons();
+}
+
+// ============ 灯箱 ============
+function lbOpen(i) {
+  if (!currentList.length) return;
+  lbIndex = i;
+  lbShow();
+}
+
+function lbShow() {
+  const p = currentList[lbIndex];
+  if (!p) return;
+  const lb = document.getElementById('lightbox');
+  document.getElementById('lb-img').src = p.src;
+  document.getElementById('lb-img').alt = p.title || '';
+  document.getElementById('lb-title').textContent = (p.title || '') + (p.date ? '　' + p.date : '');
+  document.getElementById('lb-desc').textContent = p.desc || (p.category || '');
+  document.getElementById('lb-prev').style.display = currentList.length > 1 ? '' : 'none';
+  document.getElementById('lb-next').style.display = currentList.length > 1 ? '' : 'none';
+  lb.classList.remove('hidden');
+  document.body.style.overflow = 'hidden';
+}
+
+function lbClose() {
+  document.getElementById('lightbox').classList.add('hidden');
+  document.body.style.overflow = '';
+}
+
+function lbNav(d) {
+  if (!currentList.length) return;
+  lbIndex = (lbIndex + d + currentList.length) % currentList.length;
+  lbShow();
+}
+
+let lbIndex = 0;
+
+document.addEventListener('keydown', function (e) {
+  const lb = document.getElementById('lightbox');
+  if (lb.classList.contains('hidden')) return;
+  if (e.key === 'Escape') lbClose();
+  if (e.key === 'ArrowLeft') lbNav(-1);
+  if (e.key === 'ArrowRight') lbNav(1);
+});
+
+// 初始化
+renderFilters();
+renderGrid();
+</script>
+</body>
+</html>

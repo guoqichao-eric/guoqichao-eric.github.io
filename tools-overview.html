@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>个人工具·技能·提问全景梳理</title>
+<link rel="icon" type="image/jpeg" href="images/ericsson.jpg">
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+<style>
+  :root{
+    --bg:#f4f6fa; --card:#ffffff; --ink:#1f2937; --sub:#6b7280;
+    --line:#e5e7eb; --accent:#1a3a5c; --accent2:#2f6db5; --soft:#eef3fa;
+    --good:#16a34a; --warn:#d97706;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{font-family:"Microsoft YaHei","PingFang SC",system-ui,sans-serif; background:var(--bg); color:var(--ink); line-height:1.7;}
+  /* 站点导航（与主页风格一致） */
+  .site-nav{position:fixed; top:0; left:0; right:0; z-index:100; background:#2c2c2e; border-bottom:1px solid rgba(255,255,255,.12);}
+  .site-nav .inner{max-width:1080px; margin:0 auto; padding:0 20px; height:52px; display:flex; align-items:center; justify-content:space-between;}
+  .site-nav a{color:#fff; text-decoration:none; font-size:14.5px; font-weight:600; letter-spacing:.5px;}
+  .site-nav .links{display:flex; gap:18px; align-items:center;}
+  .site-nav .links a{color:#d1d5db; font-weight:400; font-size:13.5px;}
+  .site-nav .links a:hover{color:#fff;}
+  .site-nav .links a.active{color:#fff; font-weight:600;}
+  .wrap{max-width:1080px; margin:0 auto; padding:84px 20px 80px;}
+  header.hero{background:linear-gradient(135deg,#1a3a5c 0%,#2f6db5 100%); color:#fff; border-radius:16px; padding:40px 36px; margin-bottom:28px;}
+  header.hero h1{font-size:28px; font-weight:700; letter-spacing:1px;}
+  header.hero p{margin-top:10px; color:#d7e4f5; font-size:15px;}
+  .stats{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:14px; margin-top:24px;}
+  .stat{background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.2); border-radius:12px; padding:14px 16px; text-align:center;}
+  .stat b{display:block; font-size:26px; font-weight:800;}
+  .stat span{font-size:13px; color:#cfe0f5;}
+  h2{font-size:21px; margin:36px 0 6px; color:var(--accent); display:flex; align-items:center; gap:10px;}
+  h2::before{content:""; width:5px; height:22px; background:var(--accent2); border-radius:3px;}
+  .sub{color:var(--sub); font-size:13.5px; margin-bottom:16px;}
+  .card{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:22px 24px; margin-bottom:18px; box-shadow:0 1px 3px rgba(0,0,0,.04);}
+  table{width:100%; border-collapse:collapse; font-size:14px;}
+  th{background:var(--soft); color:var(--accent); text-align:left; padding:9px 12px; font-weight:600; border-bottom:2px solid var(--line);}
+  td{padding:8px 12px; border-bottom:1px solid var(--line); vertical-align:top;}
+  tr:last-child td{border-bottom:none;}
+  .num{text-align:right; font-variant-numeric:tabular-nums;}
+  .bar{display:inline-block; height:10px; border-radius:5px; background:linear-gradient(90deg,#2f6db5,#6ba3e0); vertical-align:middle; min-width:2px;}
+  .tag{display:inline-block; background:var(--soft); color:var(--accent2); border-radius:20px; padding:2px 12px; font-size:12.5px; margin:2px 3px 2px 0; border:1px solid #d3e0f2;}
+  .tag.self{background:#fdf6e7; color:#9a6b00; border-color:#f0dfae;}
+  .tag.hot{background:#eaf7ef; color:#15803d; border-color:#c9e8d6;}
+  .chart{width:100%; height:420px;}
+  .chart.sm{height:340px;}
+  .grid2{display:grid; grid-template-columns:1fr 1fr; gap:18px;}
+  @media(max-width:820px){.grid2{grid-template-columns:1fr;}}
+  .tl{position:relative; padding-left:26px; border-left:2px solid var(--line);}
+  .tl-item{position:relative; margin-bottom:16px;}
+  .tl-item::before{content:""; position:absolute; left:-31px; top:6px; width:12px; height:12px; border-radius:50%; background:var(--accent2); border:2px solid #fff; box-shadow:0 0 0 2px var(--accent2);}
+  .tl-month{font-weight:700; color:var(--accent); font-size:15px;}
+  .tl-body{margin-top:2px; font-size:14px; color:#374151;}
+  .tl-body li{margin-left:18px;}
+  .note{background:#fffbea; border:1px solid #f2e3b3; border-radius:10px; padding:12px 16px; font-size:13px; color:#6b5414; margin-top:10px;}
+  footer{margin-top:40px; color:var(--sub); font-size:12.5px; text-align:center;}
+</style>
+</head>
+<body>
+<nav class="site-nav">
+  <div class="inner">
+    <a href="index.html">Homepage</a>
+    <div class="links">
+      <a href="thinking.html">思考框架</a>
+      <a href="ai.html" class="active">AI 专区</a>
+      <a href="gallery.html">活动</a>
+      <a href="index.html">返回主页</a>
+    </div>
+  </div>
+</nav>
+<div class="wrap">
+
+<header class="hero">
+  <h1>个人工具 · 技能 · 提问全景梳理</h1>
+  <p>基于豆包/豆包工作会话轨迹（2026-08-30 ~ 2026-09-16，24 个会话）、长期记忆与本地工作目录（E:\信院相关、E:\备课）交叉汇总，覆盖 2026-04 至今。</p>
+  <div class="stats">
+    <div class="stat"><b>24</b><span>个工作会话</span></div>
+    <div class="stat"><b>363</b><span>条用户提问</span></div>
+    <div class="stat"><b>23</b><span>种豆包工作工具</span></div>
+    <div class="stat"><b>11</b><span>个自制/装配 Skill</span></div>
+    <div class="stat"><b>40+</b><span>个课题与项目</span></div>
+  </div>
+</header>
+
+<h2>一、用过的工具</h2>
+<p class="sub">豆包工作中的实际工具调用统计（按调用次数） + 工作中用到的外部工具与平台。</p>
+
+<div class="card">
+  <div class="chart" id="chartTools"></div>
+  <div style="margin-top:10px;font-size:13px;color:var(--sub);">数据口径：24 个会话轨迹中 assistant 侧 tool_calls 的 function.name 累计（含 organizer/subagent 的并行调用）。</div>
+</div>
+
+<div class="grid2">
+  <div class="card">
+    <h3 style="color:var(--accent);font-size:16px;margin-bottom:10px;">豆包工作内置工具（23 种）</h3>
+    <table>
+      <tr><th>工具</th><th class="num">次数</th><th>用途</th></tr>
+      <tr><td>Bash</td><td class="num">1051</td><td>命令行、脚本运行、环境操作</td></tr>
+      <tr><td>Write</td><td class="num">675</td><td>写文件/代码/报告</td></tr>
+      <tr><td>Read</td><td class="num">357</td><td>读文档/附件/轨迹</td></tr>
+      <tr><td>general_search</td><td class="num">215</td><td>网络检索（企业、法规、资料）</td></tr>
+      <tr><td>Edit</td><td class="num">193</td><td>增量修改文件</td></tr>
+      <tr><td>TodoWrite</td><td class="num">126</td><td>任务清单管理</td></tr>
+      <tr><td>computer_use_tool</td><td class="num">115</td><td>本地浏览器/桌面自动化（问卷星代填、网页操作）</td></tr>
+      <tr><td>TaskOutput</td><td class="num">74</td><td>后台任务结果收集</td></tr>
+      <tr><td>wait_agent</td><td class="num">72</td><td>等待子智能体</td></tr>
+      <tr><td>present_files</td><td class="num">63</td><td>向用户交付文件</td></tr>
+      <tr><td>create_agent</td><td class="num">47</td><td>委派并行子智能体</td></tr>
+      <tr><td>web.fetch</td><td class="num">23</td><td>抓取网页/文档全文</td></tr>
+      <tr><td>Grep</td><td class="num">23</td><td>内容检索</td></tr>
+      <tr><td>send_message</td><td class="num">19</td><td>与子智能体通信</td></tr>
+      <tr><td>Wait</td><td class="num">10</td><td>延时等待</td></tr>
+      <tr><td>Glob</td><td class="num">9</td><td>文件模式查找</td></tr>
+      <tr><td>app_builder_agent</td><td class="num">6</td><td>网页应用构建</td></tr>
+      <tr><td>peek_task_progress / peek_agent_progress</td><td class="num">7</td><td>任务进度查看</td></tr>
+      <tr><td>image_search</td><td class="num">4</td><td>图片检索</td></tr>
+      <tr><td>seed_legal_search</td><td class="num">2</td><td>法规条文检索</td></tr>
+      <tr><td>image_gen</td><td class="num">2</td><td>图片生成</td></tr>
+      <tr><td>TaskStop</td><td class="num">1</td><td>终止后台任务</td></tr>
+    </table>
+  </div>
+  <div class="card">
+    <h3 style="color:var(--accent);font-size:16px;margin-bottom:10px;">外部工具 / 平台（工作中实际使用）</h3>
+    <table>
+      <tr><th>类别</th><th>工具</th></tr>
+      <tr><td>在线问卷</td><td>问卷星（wj.qq.com）、腾讯问卷</td></tr>
+      <tr><td>文档办公</td><td>飞书文档/表格/幻灯片、豆包文档、Word/Excel/PPT、WPS</td></tr>
+      <tr><td>数据可视化</td><td>ECharts、AntV G6（岗位能力图谱/驾驶舱）、HTML/SVG</td></tr>
+      <tr><td>安全实训</td><td>Kali Linux、phpstudy、蚁剑、XSS 靶机、Metasploit 思路、3389 远程桌面</td></tr>
+      <tr><td>远程与运维</td><td>Xshell、SSH、ansible（曾接触）、Docker、nmcli</td></tr>
+      <tr><td>开发环境</td><td>Python（pymupdf、python-docx、pandas 等）、Node.js、Git、Vite/Vue</td></tr>
+      <tr><td>浏览器自动化</td><td>豆包内置浏览器（computer_use）、Chrome</td></tr>
+      <tr><td>企业数据源</td><td>安全牛全景图（aqniu.net）、各省工信厅、招聘网站、国家统计局门类</td></tr>
+      <tr><td>通讯社交</td><td>微信（wechat 文件）、飞书 IM</td></tr>
+    </table>
+    <div class="note">说明：外部工具清单来源于会话轨迹中的文件路径、网址与操作对象；若需逐项核验使用频次，可以进一步导出。</div>
+  </div>
+</div>
+
+<h2>二、Skill 使用</h2>
+<p class="sub">分为「实际读取使用的系统 Skill」与「围绕课题自制/装配的用户 Skill」两类。</p>
+
+<div class="grid2">
+  <div class="card">
+    <h3 style="color:var(--accent);font-size:16px;margin-bottom:10px;">系统 Skill（按读取次数）</h3>
+    <table>
+      <tr><th>Skill</th><th class="num">读取</th><th>用途</th></tr>
+      <tr><td>doubao-visualization</td><td class="num">73</td><td>数据可视化（ECharts/HTML）</td></tr>
+      <tr><td>ppt</td><td class="num">33</td><td>幻灯片创建与编辑</td></tr>
+      <tr><td>lark-doc</td><td class="num">24</td><td>Word/飞书文档处理</td></tr>
+      <tr><td>teacher-trio-agent</td><td class="num">10</td><td>教师 PPT+教案+实训 三件套</td></tr>
+      <tr><td>doubao-app-builder</td><td class="num">9</td><td>网页应用生成</td></tr>
+      <tr><td>ppt-style-techblue-teaching</td><td class="num">8</td><td>科技蓝深蓝渐变教学课件风格</td></tr>
+      <tr><td>doubao-questionnaire-designer</td><td class="num">2</td><td>问卷设计</td></tr>
+      <tr><td>sheet</td><td class="num">2</td><td>表格处理</td></tr>
+      <tr><td>browser-use-automation</td><td class="num">1</td><td>浏览器自动化</td></tr>
+    </table>
+  </div>
+  <div class="card">
+    <h3 style="color:var(--accent);font-size:16px;margin-bottom:10px;">自制 / 装配 Skill（.user_skills，11 个）</h3>
+    <p style="font-size:13px;color:var(--sub);margin-bottom:10px;">这些是你在豆包工作中逐步定制出来的技能，多数围绕「工业互联网岗位能力图谱调研」课题。</p>
+    <table>
+      <tr><th>Skill</th><th>定位</th></tr>
+      <tr><td><span class="tag self">自制</span> teacher-trio-agent</td><td>教师端到端生成 PPT + 教案 + 实训指导的通用对话智能体</td></tr>
+      <tr><td><span class="tag self">自制</span> ppt-style-techblue-teaching</td><td>基于《图片隐写术》审定版提炼的科技蓝教学课件风格系统</td></tr>
+      <tr><td>capability-survey-orchestrator</td><td>岗位能力调研总控编排（识别阶段→路由子技能）</td></tr>
+      <tr><td>capability-interview</td><td>岗位能力访谈式引导采集</td></tr>
+      <tr><td>capability-data-audit</td><td>调研回收数据质量校验（四要素、级别完整性）</td></tr>
+      <tr><td>capability-graph-viz</td><td>岗位能力图谱可视化（驾驶舱/旭日图/力导向等）</td></tr>
+      <tr><td>capability-report-gen</td><td>调研报告/岗位能力说明书/分企业问卷生成</td></tr>
+      <tr><td>job-capability-analysis</td><td>岗位四要素数据校验分析</td></tr>
+      <tr><td>job-posting-collector</td><td>企业招聘信息采集与行业分类</td></tr>
+      <tr><td>curriculum-mapping</td><td>岗位能力→专业群→课程→知识点映射（产教融合）</td></tr>
+      <tr><td>survey-deploy</td><td>问卷星问卷部署与回收</td></tr>
+    </table>
+  </div>
+</div>
+
+<h2>三、提问梳理（363 条，按主题聚类）</h2>
+<p class="sub">以下为主题分布与代表性提问；完整 363 条可按会话逐条追溯。</p>
+
+<div class="card">
+  <div class="chart sm" id="chartTopics"></div>
+</div>
+
+<div class="card">
+  <h3 style="color:var(--accent);font-size:16px;margin-bottom:12px;">十大提问主题</h3>
+  <table>
+    <tr><th>主题</th><th>典型提问（摘录）</th></tr>
+    <tr><td><span class="tag hot">高频</span> 课题研究·岗位能力图谱</td><td>“输出一份《问卷设计与图谱要求对照说明》”“岗位能力图谱三级扩展”“职业素养差异化补全”“课程知识图谱与岗位能力图谱深度整合”</td></tr>
+    <tr><td><span class="tag hot">高频</span> 企业数据采集与调研</td><td>“收集山东、江苏、广东省内规模以上工业互联网企业不少于1000家”“爬取安全牛全部厂家列表并分类”“全国版安全类人才招聘信息采集”</td></tr>
+    <tr><td><span class="tag hot">高频</span> 教学课件与课程</td><td>“参考PPT优化并新增知识回顾/项目导入/课堂互动页”“生成AI赋能安全章节教案+PPT”“网络协议动画课堂网页（ARP、编码、SVG动画）”</td></tr>
+    <tr><td>网络安全教学演示</td><td>“XSS攻击脚本模拟一句话木马配合蚁剑演示”“古典密码算法演示网页（凯撒等）”“STP冗余与ZooKeeper原理分析”</td></tr>
+    <tr><td>课题申报与公文</td><td>“帮我分析申报课题要求”“起草3000字项目方案、8门核心课程框架”“数据支撑库翻倍扩充采集计划”</td></tr>
+    <tr><td>硬件与采购</td><td>“国产化双路CPU、内存≥512、HDD≥16T 大概多少钱”“GPU≥3卡、48GB显存服务器价格”</td></tr>
+    <tr><td>认证与职业发展</td><td>“软考、华为、阿里云、Cisco、K8s、NISP/CISP、CISSP、PMP、RHCE……大二学生哪个更合适”“学生面试评估表”</td></tr>
+    <tr><td>合规与合同</td><td>“用腾讯问卷做自评是否合规”“第三方调查工具数据安全合规”“作为甲方需要提供给乙方哪些交付物”</td></tr>
+    <tr><td>个人知识管理</td><td>“把我20多年工作学习经验做成框架管理工具（M-OS）”“ITTO、SWOT、写作框架分类梳理”“做成可在线发布的Excel”</td></tr>
+    <tr><td>系统与开发学习</td><td>“我的Windows空间优化一下”“HTML和JS逐句讲解待办清单实现”“生成学习手册”</td></tr>
+  </table>
+  <div class="note">更早提问（记忆库，2026-04~08）：超星打分自动化脚本、电子取证实验室设备调研（美亚柏科取证塔/手机大师/云勘大师）、智算中心B300集群与RoCE网络、BGP多线/5G核心网、职称评定与教学考核、济南→贵州自驾路线规划、古诗翻译（陶渊明/杜甫/茅盾）、药物与健康咨询、高考志愿（650分段/山东英才学院）等。</div>
+</div>
+
+<h2>四、项目与课题时间线（2026-04 至今）</h2>
+<p class="sub">来源：本地工作目录 E:\信院相关（40+ 项目文件夹） + 会话轨迹 + 长期记忆。</p>
+
+<div class="card">
+  <div class="tl">
+    <div class="tl-item">
+      <div class="tl-month">2026-04 ~ 06 · 政企与网络安全项目期</div>
+      <div class="tl-body">
+        <ul>
+          <li>2026-04 工信厅课题《新质生产力引领下区域网络安全保障体系赋能山东新型工业化高质量发展研究》</li>
+          <li>“人工智能+网络安全”揭榜挂帅、信息职院数据治理、泰山杯靶场平台（2026-0417）</li>
+          <li>2026-05 化工企业调研、电信行业网络安全演练</li>
+          <li>2026-06 工业互联网安全防护公共平台、山东省算力联盟（0615）</li>
+          <li>同期（记忆）：电子取证实验室建设、智算中心方案与 B300/RoCE 调研、BGP 多线/5G 核心网技术研究、互联网执法办案系统调研</li>
+        </ul>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-month">2026-07 · 教学能力与课题攻坚期</div>
+      <div class="tl-body">
+        <ul>
+          <li>《图片隐写术》教学能力审定 PPT（科技蓝风格源头）</li>
+          <li>网络安全集群培养汇报稿、高技能人才集群培养</li>
+          <li>0716 工业互联网岗位能力图谱研究课题立项 → 问卷设计 → 224 家企业数据汇总 → 岗位三级展开 → 图谱可视化（ECharts/AntV G6）→ 招聘数据采集（长期主线）</li>
+        </ul>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-month">2026-08 · 双线并行：申报+教学</div>
+      <div class="tl-body">
+        <ul>
+          <li>双师认定、工业数转技改奖补申报、战略合作协议、教学创新、泰山杯培训合作协议</li>
+          <li>杭州职业/常州信息院校调研（0305）、8 月课题申报</li>
+          <li>备课线：网络安全基础课程、网络协议动画课堂、AI 赋能教学</li>
+        </ul>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-month">2026-09 · 密集执行期（豆包工作 24 会话）</div>
+      <div class="tl-body">
+        <ul>
+          <li>岗位能力图谱课题：问卷星创建/代填（47 家）、224 家汇总表、分企业调研问卷 8 份、岗课对接体系、课程知识图谱</li>
+          <li>招聘数据：苏鲁粤 1000+ 企业 → 全国版采集 → 安全厂家（安全牛）分类 → 全国版安全行业人才招聘库</li>
+          <li>新课题：高职贯通信息安全技术专业申报（3000 字方案、8 门核心课程、数据支撑库翻倍扩充）</li>
+          <li>市工信局任务：工业互联网企业安全评估方法、在线企业自查表、SRS 文档、分类分级报告模板</li>
+          <li>教学：XSS 教学演示（一句话木马+蚁剑）、AI 赋能安全教案 PPT、教师三件套 skill 开发、网络协议 SVG 动画课堂</li>
+          <li>个人：方法论操作系统 M-OS、Windows 空间优化、HTML/JS 学习手册、面试评估表</li>
+          <li>其他：教育领域重大设备更新、职业教育专业与课程体系建设项目（待申报）、金砖比赛、奇安信签约、泰山杯培训合作交付物（应急预案/培训表/测评表）、服务器硬件询价</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<h2>五、综合画像</h2>
+<div class="card">
+  <table>
+    <tr><th style="width:140px;">维度</th><th>梳理结论</th></tr>
+    <tr><td>职业身份</td><td>高职院校 IT / 网络安全教师（2026 年新入职备案制入编），同时承担课题负责人、实验室建设、校企合作等角色；拥有 PMP、软考高项、架构师等认证与 20+ 年企业项目/管理经验（前 IT 架构师）。</td></tr>
+    <tr><td>核心能力域</td><td>网络安全教学与实训、工业互联网岗位能力图谱研究、课题申报与调研、企业数据采集分析、教学资源开发（PPT/教案/题库）、IT 基础设施规划（服务器/智算中心/取证实验室）。</td></tr>
+    <tr><td>工具使用特征</td><td>重度使用自动化执行（Bash/脚本）、批量数据采集（搜索+浏览器自动化+并行子智能体）、可视化交付（ECharts/HTML），善于把重复工作封装为 Skill 复用。</td></tr>
+    <tr><td>提问风格</td><td>强结果导向：“帮我直接操作”“继续执行”“按模板生成”；偏好可视化和可交付文件（Excel/PPT/HTML）；要求数据真实可溯源、反对编造。</td></tr>
+    <tr><td>自制能力沉淀</td><td>已沉淀 2 个教学类 Skill（教师三件套、科技蓝风格）+ 9 个课题类 Skill（调研/采集/图谱/映射），形成“调研→分析→可视化→课程映射”全流程工具链。</td></tr>
+  </table>
+</div>
+
+<footer>数据来源：豆包工作 24 个会话轨迹（38438861695614210 ~ 38441857667417346）、长期记忆、E:\信院相关 与 E:\备课 目录。生成于 2026-09-18。<br><br><a href="admin.html" style="color:#6b7280;font-size:12px;">后台管理</a></footer>
+</div>
+
+<script>
+(function(){
+  function init(id, opt){ var el=document.getElementById(id); if(el && window.echarts){ var c=echarts.init(el); c.setOption(opt); window.addEventListener('resize',function(){c.resize();}); } }
+  init('chartTools', {
+    backgroundColor:'transparent',
+    title:{text:'豆包工作工具调用 TOP 15（次）', left:'center', textStyle:{color:'#1a3a5c', fontSize:16, fontWeight:600}},
+    tooltip:{trigger:'axis', triggerOn:'click', renderMode:'richText', confine:true, textStyle:{fontSize:11, lineHeight:15}, padding:[6,8]},
+    grid:{left:120, right:48, top:56, bottom:28, containLabel:true},
+    xAxis:{type:'value', axisLabel:{color:'#6b7280', fontSize:11}},
+    yAxis:{type:'category', inverse:true, data:['Bash','Write','Read','general_search','Edit','TodoWrite','computer_use_tool','TaskOutput','wait_agent','present_files','create_agent','web.fetch','Grep','send_message','Wait'], axisLabel:{color:'#374151', fontSize:12}},
+    series:[{type:'bar', data:[1051,675,357,215,193,126,115,74,72,63,47,23,23,19,10],
+      itemStyle:{color:'#2f6db5', borderRadius:[0,4,4,0]},
+      label:{show:true, position:'right', color:'#1f2937', fontSize:11}}
+    ]
+  });
+  init('chartTopics', {
+    backgroundColor:'transparent',
+    title:{text:'提问主题分布（按会话消息出现频次）', left:'center', textStyle:{color:'#1a3a5c', fontSize:15, fontWeight:600}},
+    tooltip:{trigger:'item', triggerOn:'click', renderMode:'richText', confine:true, textStyle:{fontSize:11, lineHeight:15}, padding:[6,8]},
+    legend:{bottom:0, type:'scroll', itemWidth:14, itemHeight:8, textStyle:{color:'#6b7280', fontSize:11}},
+    series:[{name:'主题', type:'pie', radius:['38%','64%'], center:['50%','46%'],
+      label:{formatter:'{b} {c}', color:'#374151', fontSize:11},
+      data:[
+        {value:46, name:'数据/图谱/岗位'},
+        {value:31, name:'安全（含教学演示）'},
+        {value:30, name:'能力/图谱/岗位'},
+        {value:21, name:'课程/教学'},
+        {value:19, name:'问卷/调研'},
+        {value:14, name:'采集/招聘'},
+        {value:12, name:'浏览器/网页'},
+        {value:10, name:'协议/课题申报'},
+        {value:8, name:'硬件/服务器'},
+        {value:6, name:'其他'}
+      ],
+      itemStyle:{borderRadius:4, borderColor:'#fff', borderWidth:1}}
+    ]
+  });
+})();
+</script>
+</body>
+</html>
