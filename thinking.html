@@ -33,6 +33,7 @@
 
 <script src="data.js"></script>
 <script src="thinking-data.js"></script>
+<script src="thinking-charts.js"></script>
 
 <!-- Navigation -->
 <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 bg-[#2c2c2e] backdrop-blur-sm border-b border-gray-700/30 transition-shadow duration-300">
@@ -65,12 +66,27 @@
 <!-- 框架库 -->
 <section id="library" class="py-14 bg-white">
   <div class="max-w-6xl mx-auto px-6 flex flex-col items-center">
+    <div class="flex justify-center gap-2 mb-6">
+      <button id="view-frames" onclick="setView('frames')" class="px-4 py-1.5 rounded-full text-sm font-medium border transition-colors bg-primary text-white border-primary">框架库</button>
+      <button id="view-charts" onclick="setView('charts')" class="px-4 py-1.5 rounded-full text-sm font-medium border transition-colors bg-white text-gray-600 border-gray-200 hover:border-accent/50">图例库</button>
+    </div>
     <input id="search" type="text" placeholder="搜索框架、关键词、场景…" class="w-full max-w-md text-sm rounded-lg border border-gray-200 px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-accent/40 bg-white mb-4">
-    <div id="cat-chips" class="flex flex-wrap justify-center gap-2 mb-4"></div>
+    <div id="cat-chips" class="flex flex-wrap justify-center gap-2 mb-4 max-h-40 overflow-y-auto"></div>
+    <div id="chart-chips" class="hidden flex flex-wrap justify-center gap-2 mb-4 max-h-40 overflow-y-auto"></div>
     <p id="result-count" class="text-xs text-gray-400 mb-4"></p>
     <div id="frame-grid" class="w-full"></div>
   </div>
 </section>
+
+<!-- 图例详情弹层 -->
+<div id="chart-modal" class="hidden fixed inset-0 z-50 bg-black/40 flex items-center justify-center p-4" onclick="if(event.target===this)closeChartModal()">
+  <div class="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto p-6">
+    <div id="chart-modal-body"></div>
+    <div class="text-right mt-4">
+      <button onclick="closeChartModal()" class="px-4 py-2 bg-surface rounded-lg text-sm text-gray-600 hover:bg-gray-200 transition-colors">关闭</button>
+    </div>
+  </div>
+</div>
 
 <!-- 思考沉淀 -->
 <section id="reflection" class="py-14 bg-surface">
@@ -123,9 +139,90 @@ function renderChips() {
 }
 function setCat(c) { activeCat = c; renderChips(); renderGrid(); }
 
+// ===== 视图切换：框架库 / 图例库 =====
+let activeView = 'frames';
+const CHART_GROUPS = ["A 比较类", "B 趋势类", "C 构成类", "D 分布类", "E 关联矩阵类", "F 因果类", "G 流程类", "H 结构类", "I 驾驶舱/大屏类"];
+const CHART_ITEMS = FRAMES.filter(function (f) { return f.domain_code === 'CHART'; });
+let activeChartGroup = 'ALL';
+const viewFramesBtn = document.getElementById('view-frames');
+const viewChartsBtn = document.getElementById('view-charts');
+const chartChipsBox = document.getElementById('chart-chips');
+viewChartsBtn.textContent = '图例库 · ' + CHART_ITEMS.length;
+
+function setView(v) {
+  activeView = v;
+  viewFramesBtn.className = 'px-4 py-1.5 rounded-full text-sm font-medium border transition-colors ' + (v === 'frames' ? 'bg-primary text-white border-primary' : 'bg-white text-gray-600 border-gray-200 hover:border-accent/50');
+  viewChartsBtn.className = 'px-4 py-1.5 rounded-full text-sm font-medium border transition-colors ' + (v === 'charts' ? 'bg-primary text-white border-primary' : 'bg-white text-gray-600 border-gray-200 hover:border-accent/50');
+  document.getElementById('search').value = '';
+  searchText = '';
+  activeCat = 'ALL';
+  activeChartGroup = 'ALL';
+  chipBox.classList.toggle('hidden', v !== 'frames');
+  chartChipsBox.classList.toggle('hidden', v !== 'charts');
+  renderChips();
+  renderChartChips();
+  renderGrid();
+}
+function listify(v) {
+  if (!v) return [];
+  if (Array.isArray(v)) return v;
+  return String(v).split(/[,，、]/).map(function (s) { return s.trim(); }).filter(Boolean);
+}
+function renderChartChips() {
+  const all = ['ALL'].concat(CHART_GROUPS);
+  chartChipsBox.innerHTML = all.map(function (g) {
+    const n = g === 'ALL' ? CHART_ITEMS.length : CHART_ITEMS.filter(function (f) { return f.category === g || f.triggers === g; }).length;
+    return '<button onclick="setChartGroup(\'' + g + '\')" class="px-3 py-1.5 rounded-full text-xs font-medium border transition-colors ' +
+      (g === activeChartGroup ? 'bg-primary text-white border-primary' : 'bg-white text-gray-600 border-gray-200 hover:border-accent/50') + '">' + esc(g) + ' · ' + n + '</button>';
+  }).join('');
+}
+function setChartGroup(g) { activeChartGroup = g; renderChartChips(); renderCharts(); }
+function renderCharts() {
+  const grid = document.getElementById('frame-grid');
+  let list = CHART_ITEMS;
+  if (activeChartGroup !== 'ALL') list = list.filter(function (f) { return f.category === activeChartGroup || f.triggers === activeChartGroup; });
+  if (searchText) {
+    list = list.filter(function (f) {
+      const hay = [f.name, f.aliases, f.summary, f.problem_statement, f.related_frameworks, f.keywords].join(' ').toLowerCase();
+      return hay.indexOf(searchText) >= 0;
+    });
+  }
+  document.getElementById('result-count').textContent = '共 ' + list.length + ' 个图例';
+  grid.innerHTML = '<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">' + list.map(function (f) {
+    const sample = chartSampleOf(f);
+    const svg = renderChartSVG(chartTypeOf(f), sample, 420, 280);
+    return '<button onclick="openChart(\'' + esc(f.code) + '\')" class="text-left bg-white rounded-xl border border-gray-100 overflow-hidden hover:border-accent/40 hover:shadow-md transition-all duration-300">'
+      + '<div class="p-3 border-b border-gray-100">' + svg + '</div>'
+      + '<div class="p-4"><h3 class="font-bold text-gray-800 text-sm mb-1">' + esc(f.name) + '</h3>'
+      + '<p class="text-xs text-gray-500 leading-relaxed line-clamp-2">' + esc(f.summary || '') + '</p>'
+      + '<p class="text-[10px] text-gray-400 font-mono mt-2">' + esc(f.code || '') + '</p></div>'
+      + '</button>';
+  }).join('') + '</div>';
+}
+function openChart(code) {
+  const f = CHART_ITEMS.find(function (x) { return x.code === code; });
+  if (!f) return;
+  const sample = chartSampleOf(f);
+  const svg = renderChartSVG(chartTypeOf(f), sample, 560, 360);
+  const rel = listify(f.related_frameworks);
+  const relHtml = rel.length ? '<div class="mt-4"><p class="text-xs font-semibold text-gray-700 mb-2">匹配方法论</p><div class="flex flex-wrap gap-2">' +
+    rel.map(function (r) { return '<span class="px-2.5 py-1 bg-surface rounded-full text-xs text-gray-600 border border-gray-100">' + esc(r) + '</span>'; }).join('') + '</div></div>' : '';
+  document.getElementById('chart-modal-body').innerHTML =
+    '<div class="flex items-start justify-between gap-3 mb-3">'
+    + '<div><h3 class="font-serif text-xl font-bold text-primary">' + esc(f.name) + '</h3>'
+    + '<p class="text-xs text-gray-400 font-mono mt-1">' + esc(f.code || '') + '</p></div>'
+    + '<span class="px-2.5 py-1 bg-accent/10 text-accent text-[11px] rounded font-medium shrink-0">' + esc(f.category || '') + '</span></div>'
+    + '<div class="bg-surface rounded-xl p-3">' + svg + '</div>'
+    + '<div class="mt-4"><p class="text-xs font-semibold text-gray-700 mb-1">一句话</p><p class="text-sm text-gray-500 leading-relaxed">' + esc(f.summary || '') + '</p></div>'
+    + '<div class="mt-3"><p class="text-xs font-semibold text-gray-700 mb-1">解决的问题</p><p class="text-sm text-gray-500 leading-relaxed">' + esc(f.problem_statement || '') + '</p></div>'
+    + relHtml;
+  document.getElementById('chart-modal').classList.remove('hidden');
+}
+function closeChartModal() { document.getElementById('chart-modal').classList.add('hidden'); }
+
 document.getElementById('search').addEventListener('input', function (e) {
   searchText = e.target.value.trim().toLowerCase();
-  renderGrid();
+  if (activeView === 'charts') renderCharts(); else renderGrid();
 });
 
 // 卡片渲染
@@ -160,6 +257,7 @@ function cardBody(f) {
 }
 function renderGrid() {
   const grid = document.getElementById('frame-grid');
+  if (activeView === 'charts') { renderCharts(); return; }
   let list = FRAMES;
   if (activeCat !== 'ALL') list = list.filter(function (f) { return f.category === activeCat; });
   if (searchText) {
@@ -217,6 +315,7 @@ document.getElementById('thinking-grid').innerHTML = D2.map(function (x) {
 }).join('');
 
 renderChips();
+renderChartChips();
 renderGrid();
 if (window.lucide) lucide.createIcons();
 </script>
